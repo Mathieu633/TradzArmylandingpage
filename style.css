@@ -7,7 +7,7 @@
 
 body {
     font-family: 'Helvetica Neue', Arial, sans-serif;
-    background: #0f1117;
+    background: #000000;
     color: #ffffff;
     min-height: 100vh;
     padding-bottom: 80px; /* espace pour le footer fixé */
@@ -58,7 +58,7 @@ body {
 }
 .logo-link:hover {
     transform: scale(1.04);
-    filter: drop-shadow(0 0 18px rgba(136,136,136,0.6));
+    filter: drop-shadow(0 0 18px rgba(212,175,55,0.6));
 }
 .logo {
     max-width: 110px;
@@ -71,7 +71,7 @@ body {
     letter-spacing: 1px;
     text-transform: uppercase;
     margin-bottom: 12px;
-    background: linear-gradient(90deg, #555555 0%, #888888 25%, #555555 50%, #888888 75%, #555555 100%);
+    background: linear-gradient(90deg, #B8860B 0%, #C9A961 20%, #D4AF37 40%, #C9A961 60%, #D4AF37 80%, #B8860B 100%);
     background-size: 200% 100%;
     -webkit-background-clip: text;
     background-clip: text;
@@ -89,7 +89,7 @@ body {
 }
 
 .title-accent {
-    background: linear-gradient(90deg, #555555 0%, #888888 25%, #555555 50%, #888888 75%, #555555 100%);
+    background: linear-gradient(90deg, #B8860B 0%, #C9A961 20%, #D4AF37 40%, #C9A961 60%, #D4AF37 80%, #B8860B 100%);
     background-size: 200% 100%;
     -webkit-background-clip: text;
     background-clip: text;
@@ -108,7 +108,7 @@ body {
     max-width: 1000px;
     height: 2px;
     margin: 24px auto;
-    background: linear-gradient(90deg, #555555 0%, #888888 25%, #555555 50%, #888888 75%, #555555 100%);
+    background: linear-gradient(90deg, #B8860B 0%, #C9A961 20%, #D4AF37 40%, #C9A961 60%, #D4AF37 80%, #B8860B 100%);
     background-size: 200% 100%;
     animation: gradient-flow 3s linear infinite;
 }
@@ -130,10 +130,11 @@ body {
 .video-container {
     position: relative;
     padding-bottom: 56.25%;
-    background: #1a1d29;
+    background: #0a0a0a;
     border-radius: 16px;
     overflow: hidden;
     box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    border: 1px solid rgba(255, 255, 255, 0.05);
 }
 .video-placeholder {
     position: absolute;
@@ -141,7 +142,7 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    background: linear-gradient(135deg, #1a1d29 0%, #252936 100%);
+    background: linear-gradient(135deg, #0a0a0a 0%, #111111 100%);
 }
 .video-description {
     text-align: center;
@@ -180,17 +181,17 @@ body {
 }
 
 .btn-primary {
-    background: linear-gradient(90deg, #555555 0%, #888888 100%);
+    background: linear-gradient(90deg, #B8860B 0%, #C9A961 50%, #D4AF37 100%);
     background-size: 100% 100%;
     animation: pulse-zoom 2s ease-in-out infinite;
-    color: #fff;
+    color: #0f1117;
     border: none;
     padding: 16px 42px;
     font-size: 16px;
     font-weight: 700;
     border-radius: 12px;
     cursor: pointer;
-    box-shadow: 0 4px 15px rgba(85,85,85,0.4);
+    box-shadow: 0 4px 15px rgba(212,175,55,0.4);
 }
 
 .btn-primary:hover {
@@ -212,7 +213,7 @@ body {
     height: 32px;
     border-radius: 50%;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    border: 2px solid #0f1117;
+    border: 2px solid #000000;
     margin-left: -8px;
     overflow: hidden;
 }
@@ -241,7 +242,7 @@ body {
 .progress-fill {
     height: 100%;
     width: 0%;
-    background: linear-gradient(90deg, #555555 0%, #888888 25%, #555555 50%, #888888 75%, #555555 100%);
+    background: linear-gradient(90deg, #B8860B 0%, #C9A961 20%, #D4AF37 40%, #C9A961 60%, #D4AF37 80%, #B8860B 100%);
     background-size: 200% 100%;
     animation: gradient-flow 3s linear infinite;
 }
@@ -286,12 +287,12 @@ body {
     text-align: left;
 }
 .answer-btn:hover {
-    border-color: rgba(200,200,200,0.8);
-    box-shadow: 0 0 10px rgba(200,200,200,0.3);
+    border-color: rgba(212,175,55,0.8);
+    box-shadow: 0 0 10px rgba(212,175,55,0.3);
 }
 .answer-btn.selected {
-    border-color: #888;
-    background: rgba(85,85,85,0.15);
+    border-color: #D4AF37;
+    background: rgba(212,175,55,0.15);
 }
 
 .btn-previous {
@@ -307,7 +308,7 @@ body {
 .congrats-title {
     font-size: 42px;
     font-weight: 800;
-    background: linear-gradient(90deg, #555555 0%, #888888 25%, #555555 50%, #888888 75%, #555555 100%);
+    background: linear-gradient(90deg, #B8860B 0%, #C9A961 20%, #D4AF37 40%, #C9A961 60%, #D4AF37 80%, #B8860B 100%);
     background-size: 200% 100%;
     -webkit-background-clip: text;
     background-clip: text;
@@ -318,7 +319,7 @@ body {
     margin-top: 4px;
 }
 .gradient-text {
-    background: linear-gradient(90deg, #555555 0%, #888888 25%, #555555 50%, #888888 75%, #555555 100%);
+    background: linear-gradient(90deg, #B8860B 0%, #C9A961 20%, #D4AF37 40%, #C9A961 60%, #D4AF37 80%, #B8860B 100%);
     background-size: 200% 100%;
     -webkit-background-clip: text;
     background-clip: text;
@@ -335,7 +336,7 @@ body {
     line-height: 1.6;
 }
 .congrats-text strong {
-    background: linear-gradient(90deg, #555555 0%, #888888 25%, #555555 50%, #888888 75%, #555555 100%);
+    background: linear-gradient(90deg, #B8860B 0%, #C9A961 20%, #D4AF37 40%, #C9A961 60%, #D4AF37 80%, #B8860B 100%);
     background-size: 200% 100%;
     -webkit-background-clip: text;
     background-clip: text;
@@ -385,7 +386,7 @@ body {
     margin-bottom: 18px;
 }
 .link {
-    background: linear-gradient(90deg, #555555 0%, #888888 25%, #555555 50%, #888888 75%, #555555 100%);
+    background: linear-gradient(90deg, #B8860B 0%, #C9A961 20%, #D4AF37 40%, #C9A961 60%, #D4AF37 80%, #B8860B 100%);
     background-size: 200% 100%;
     -webkit-background-clip: text;
     background-clip: text;
@@ -401,10 +402,11 @@ body {
 .video-container-unlocked {
     position: relative;
     padding-bottom: 56.25%;
-    background: #000;
+    background: #0a0a0a;
     border-radius: 16px;
     overflow: hidden;
     box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    border: 1px solid rgba(255, 255, 255, 0.05);
 }
 #video-screen .video-container {
     background: transparent;
@@ -468,7 +470,7 @@ body {
     background: transparent;
     border: none;
     font-size: 32px;
-    color: #666;
+    color: #B8860B;
     cursor: pointer;
     width: 40px;
     height: 40px;
@@ -478,12 +480,12 @@ body {
     transition: color 0.3s ease;
 }
 .modal-close:hover {
-    color: #000;
+    color: #8B6914;
 }
 .modal-title {
     font-size: 24px;
     font-weight: 700;
-    background: linear-gradient(90deg, #555555 0%, #888888 25%, #555555 50%, #888888 75%, #555555 100%);
+    background: linear-gradient(90deg, #B8860B 0%, #C9A961 20%, #D4AF37 40%, #C9A961 60%, #D4AF37 80%, #B8860B 100%);
     background-size: 200% 100%;
     -webkit-background-clip: text;
     background-clip: text;
@@ -522,8 +524,8 @@ body {
 }
 .modal-button {
     width: 100%;
-    background: #888888;
-    color: #ffffff;
+    background: linear-gradient(90deg, #B8860B 0%, #C9A961 50%, #D4AF37 100%);
+    color: #000000;
     border: none;
     padding: 15px 30px;
     font-size: 16px;
@@ -534,7 +536,7 @@ body {
     transition: background 0.3s ease;
 }
 .modal-button:hover {
-    background: #666666;
+    background: linear-gradient(90deg, #9A7209 0%, #E6C200 100%);
 }
 
 .footer {
@@ -546,7 +548,7 @@ body {
     padding: 18px 20px;
     color: #6b7280;
     font-size: 12px;
-    background: rgba(15, 17, 23, 0.85);
+    background: #000000;
     backdrop-filter: blur(6px);
     border-top: 1px solid rgba(255, 255, 255, 0.08);
     line-height: 1.6;
