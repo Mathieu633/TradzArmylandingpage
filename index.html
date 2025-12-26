@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Méthode Trading - Mathieu B</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Écran d'accueil -->
+    <div id="home-screen" class="screen active">
+        <div class="content-wrapper">
+            <div class="container">
+                <div class="logo-container">
+                    <a href="#" class="logo-link" onclick="event.preventDefault(); showHomeScreen();">
+                        <img src="images/logo-mb.png" alt="MB Logo" class="logo">
+                    </a>
+                </div>
+                <p class="reveal-text">JE RÉVÈLE ENFIN</p>
+                <h1 class="main-title">LA MÉTHODE EXACTE QUE J'AI UTILISÉE POUR PASSER DE SALARIÉ BROKE <span class="title-accent">À 5 CHIFFRES/MOIS GRÂCE AU TRADING</span></h1>
+                <p class="subtitle">(Et comment tu peux faire pareil)</p>
+                <div class="divider"></div>
+                <p class="warning-text"><strong>Attention :</strong> Cette opportunité est réservée à un profil précis. Passe ce test pour savoir si tu es éligible à ma méthode.</p>
+                <div class="cta-section">
+                    <p class="limited-places">(Limité à 20 places ce mois-ci)</p>
+                    <button class="btn-primary" onclick="startQuiz()">PASSER LE TEST </button>
+                    <div class="time-indicator">
+                        <svg class="clock-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.5"/>
+                            <line x1="8" y1="8" x2="8" y2="5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                            <line x1="8" y1="8" x2="10.5" y2="8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                        </svg>
+                        <span>Moins d'une minute</span>
+                    </div>
+                </div>
+
+                <div class="video-preview">
+                    <div class="video-container">
+                        <div class="video-placeholder">
+                            <div class="lock-overlay">
+                                <span class="lock-icon">🔒</span>
+                            </div>
+                            <div class="youtube-footer">
+                                <span class="youtube-logo">▶</span>
+                                <span>Regarder sur YouTube</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="video-note">
+                    <span><em>*La vidéo à laquelle tu pourras accéder gratuitement est normalement vendue +1000€.</em></span>
+                </div>
+
+                <div class="cta-section">
+                    <div class="social-proof">
+                        <div class="avatars">
+                            <div class="avatar"><img src="https://randomuser.me/api/portraits/men/21.jpg" alt="Personne 1 (18-25)"></div>
+                            <div class="avatar"><img src="https://randomuser.me/api/portraits/men/23.jpg" alt="Personne 2 (18-25)"></div>
+                            <div class="avatar"><img src="https://randomuser.me/api/portraits/men/25.jpg" alt="Personne 3 (18-25)"></div>
+                        </div>
+                        <span>Rejoins Les Personnes Déjà Inscrites</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Écran de quiz -->
+    <div id="quiz-screen" class="screen">
+        <div class="content-wrapper">
+            <div class="container">
+                <div class="logo-container">
+                    <a href="#" class="logo-link" onclick="event.preventDefault(); showHomeScreen();">
+                        <img src="images/logo-mb.png" alt="MB Logo" class="logo">
+                    </a>
+                </div>
+                <div class="progress-section">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progress-fill"></div>
+                    </div>
+                    <div class="time-indicator">
+                        <svg class="clock-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.5"/>
+                            <line x1="8" y1="8" x2="8" y2="5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                            <line x1="8" y1="8" x2="10.5" y2="8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                        </svg>
+                        <span>Moins d'une minute</span>
+                    </div>
+                </div>
+
+                <div class="question-container">
+                    <h2 class="question" id="question-text"></h2>
+                    <div class="answers-container" id="answers-container"></div>
+                    <button class="btn-previous" id="btn-previous" onclick="previousQuestion()" style="display: none;">
+                        <span>←</span> Précédent
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Écran de félicitations -->
+    <div id="congrats-screen" class="screen">
+        <div class="content-wrapper">
+                <div class="container">
+                <div class="logo-container">
+                    <a href="#" class="logo-link" onclick="event.preventDefault(); showHomeScreen();">
+                        <img src="images/logo-mb.png" alt="MB Logo" class="logo">
+                    </a>
+                </div>
+                <h2 class="congrats-title">FÉLICITATION !</h2>
+                <p class="congrats-text">Seuls <strong>14,3%</strong> des participants ont réussi ce test avec succès.</p>
+                <p class="congrats-main"><strong>Tu fais partie des <span class="gradient-text">top participants</span> qui ont le bon profil pour accéder à ma méthode <span class="gradient-text">100% gratuite</span> (valeur : <span class="gradient-text">+1000€</span>).</strong></p>
+                <p class="congrats-text">Tu y découvriras MA stratégie qu'utilisent les 138 personnes que j'ai pu former pour obtenir <strong>5k€ par mois atteignables en 90 jours</strong> grâce au trading.</p>
+
+                <div class="form-container">
+                    <h3 class="form-title">Remplis tes informations !</h3>
+                    <form id="unlock-form" onsubmit="unlockVideo(event)">
+                        <div class="form-group">
+                            <label for="firstname">Ton prénom</label>
+                            <input type="text" id="firstname" name="firstname" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Ton email</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Ton numéro de téléphone</label>
+                            <input type="tel" id="phone" name="phone" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="instagram">Ton @ Instagram</label>
+                            <input type="text" id="instagram" name="instagram" placeholder="@username" required>
+                        </div>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="terms" name="terms" required>
+                            <label for="terms">
+                                J'accepte les <a href="#" class="link" onclick="event.preventDefault(); openModal('terms-modal');">conditions générales</a> et la <a href="#" class="link" onclick="event.preventDefault(); openModal('privacy-modal');">politique de confidentialité</a> de ce site internet.
+                            </label>
+                        </div>
+                        <button type="submit" class="btn-primary">SUIVANT ></button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modales (uniquement utilisées après le quiz) -->
+    <div id="terms-modal" class="modal">
+        <div class="modal-overlay" onclick="closeModal('terms-modal')"></div>
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('terms-modal')">×</button>
+            <h2 class="modal-title">Conditions générales d'utilisation</h2>
+            <div class="modal-body">
+                <div class="modal-article">
+                    <h3>Article 1 – Objet</h3>
+                    <p>Les présentes Conditions Générales d'Utilisation ont pour objet de définir les modalités d'accès et d'utilisation du site.</p>
+                </div>
+                <div class="modal-article">
+                    <h3>Article 2 – Acceptation</h3>
+                    <p>Toute navigation sur ce site implique l'acceptation pleine et entière des présentes CGU.</p>
+                </div>
+                <div class="modal-article">
+                    <h3>Article 3 – Propriété intellectuelle</h3>
+                    <p>Le contenu du site est protégé par le droit d'auteur. Toute reproduction ou représentation totale ou partielle est interdite sans autorisation écrite préalable de Genesis Digital, LLC.</p>
+                </div>
+            </div>
+            <button class="modal-button" onclick="closeModal('terms-modal')">FERMER</button>
+        </div>
+    </div>
+
+    <div id="privacy-modal" class="modal">
+        <div class="modal-overlay" onclick="closeModal('privacy-modal')"></div>
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('privacy-modal')">×</button>
+            <h2 class="modal-title">Politique de confidentialité</h2>
+            <div class="modal-body">
+                <div class="modal-article">
+                    <h3>Article 1 – Protection des données personnelles</h3>
+                    <p>Genesis Digital, LLC s'engage à protéger la vie privée et les données personnelles des utilisateurs conformément aux lois applicables, y compris le Règlement Général sur la Protection des Données (RGPD) de l'Union européenne.</p>
+                </div>
+                <div class="modal-article">
+                    <h3>Article 2 – Droits des utilisateurs</h3>
+                    <p>Vous disposez d'un droit d'accès, de rectification, d'opposition et de suppression de vos données personnelles. Pour exercer ces droits, contactez-nous à l'adresse suivante :</p>
+                    <div class="contact-info">
+                        <p>Genesis Digital, LLC</p>
+                        <p>4730 S. Fort Apache Rd. Suite 300</p>
+                        <p>Las Vegas, NV 89147-7947</p>
+                        <p>Email :</p>
+                    </div>
+                </div>
+            </div>
+            <button class="modal-button" onclick="closeModal('privacy-modal')">FERMER</button>
+        </div>
+    </div>
+
+    <!-- Écran vidéo débloquée -->
+    <div id="video-screen" class="screen">
+        <div class="content-wrapper">
+            <div class="container">
+                <div class="logo-container">
+                    <a href="#" class="logo-link" onclick="event.preventDefault(); showHomeScreen();">
+                        <img src="images/logo-mb.png" alt="MB Logo" class="logo">
+                    </a>
+                </div>
+                <p class="reveal-text">JE RÉVÈLE ENFIN</p>
+                <h1 class="main-title">LA MÉTHODE EXACTE QUE J'AI UTILISÉE POUR PASSER DE SALARIÉ BROKE <span class="title-accent">À 5 CHIFFRES/MOIS GRÂCE AU TRADING</span></h1>
+                <p class="subtitle">(Et comment tu peux faire pareil)</p>
+                <div class="divider"></div>
+                <p class="warning-text"><strong style="color: #ffffff;">Félicitation</strong> pour avoir réussi le test, tu peux maintenant accéder et regarder la vidéo ;)</p>
+                
+                <div class="video-preview">
+                    <div class="video-container">
+                        <div class="video-container-unlocked">
+                            <iframe 
+                                id="unlocked-video" 
+                                src="" 
+                                frameborder="0" 
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                allowfullscreen>
+                            </iframe>
+                        </div>
+                    </div>
+                    <p class="video-description">*La vidéo à laquelle tu as accès gratuitement est normalement vendue +1000€.</p>
+                </div>
+
+                <div class="cta-section">
+                    <div class="social-proof">
+                        <div class="avatars">
+                            <div class="avatar"><img src="https://randomuser.me/api/portraits/men/21.jpg" alt="Personne 1 (18-25)"></div>
+                            <div class="avatar"><img src="https://randomuser.me/api/portraits/men/23.jpg" alt="Personne 2 (18-25)"></div>
+                            <div class="avatar"><img src="https://randomuser.me/api/portraits/men/25.jpg" alt="Personne 3 (18-25)"></div>
+                        </div>
+                        <span>Rejoins Les Personnes Déjà Inscrites</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Conditions Générales -->
+    <div id="terms-modal" class="modal">
+        <div class="modal-overlay" onclick="closeModal('terms-modal')"></div>
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('terms-modal')">×</button>
+            <h2 class="modal-title">Conditions générales d'utilisation</h2>
+            <div class="modal-body">
+                <div class="modal-article">
+                    <h3>Article 1 – Objet</h3>
+                    <p>Les présentes Conditions Générales d'Utilisation ont pour objet de définir les modalités d'accès et d'utilisation du site.</p>
+                </div>
+                <div class="modal-article">
+                    <h3>Article 2 – Acceptation</h3>
+                    <p>Toute navigation sur ce site implique l'acceptation pleine et entière des présentes CGU.</p>
+                </div>
+                <div class="modal-article">
+                    <h3>Article 3 – Propriété intellectuelle</h3>
+                    <p>Le contenu du site est protégé par le droit d'auteur. Toute reproduction ou représentation totale ou partielle est interdite sans autorisation écrite préalable de Genesis Digital, LLC.</p>
+                </div>
+            </div>
+            <button class="modal-button" onclick="closeModal('terms-modal')">FERMER</button>
+        </div>
+    </div>
+
+    <!-- Modal Politique de Confidentialité -->
+    <div id="privacy-modal" class="modal">
+        <div class="modal-overlay" onclick="closeModal('privacy-modal')"></div>
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('privacy-modal')">×</button>
+            <h2 class="modal-title">Politique de confidentialité</h2>
+            <div class="modal-body">
+                <div class="modal-article">
+                    <h3>Article 1 – Protection des données personnelles</h3>
+                    <p>Genesis Digital, LLC s'engage à protéger la vie privée et les données personnelles des utilisateurs conformément aux lois applicables, y compris le Règlement Général sur la Protection des Données (RGPD) de l'Union européenne.</p>
+                </div>
+                <div class="modal-article">
+                    <h3>Article 2 – Droits des utilisateurs</h3>
+                    <p>Vous disposez d'un droit d'accès, de rectification, d'opposition et de suppression de vos données personnelles. Pour exercer ces droits, contactez-nous à l'adresse suivante :</p>
+                    <div class="contact-info">
+                        <p>Genesis Digital, LLC</p>
+                        <p>4730 S. Fort Apache Rd. Suite 300</p>
+                        <p>Las Vegas, NV 89147-7947</p>
+                        <p>Email :</p>
+                    </div>
+                </div>
+            </div>
+            <button class="modal-button" onclick="closeModal('privacy-modal')">FERMER</button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>2025 Copyright ©Mathieu B</p>
+        <p>Tous droits réservés - Mentions légales - Confidentialité - CGU</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
