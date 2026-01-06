@@ -1,14 +1,9 @@
-# Configuration Netlify
+# Configuration Netlify pour site statique
 [build]
-  # Pas de commande de build nécessaire pour un site statique
+  # Répertoire à publier (racine du projet)
   publish = "."
+  # Pas de commande de build nécessaire
+  command = ""
 
-[build.environment]
-  # Configuration par défaut
-
-# Redirection pour SPA (Single Page Application) si nécessaire
-# [[redirects]]
-#   from = "/*"
-#   to = "/index.html"
-#   status = 200
+# Pas de variables d'environnement nécessaires pour l'instant
 
