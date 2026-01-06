@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Base de Données</title>
+</head>
+<body>
+    <h1>Test de connexion Supabase</h1>
+    <button onclick="testConnection()">Tester la connexion</button>
+    <div id="result" style="margin-top: 20px; padding: 10px; border: 1px solid #ccc;"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="config.js"></script>
+    <script>
+        async function testConnection() {
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = 'Test en cours...';
+            
+            try {
+                const { createClient } = supabase;
+                const supabaseClient = createClient(SUPABASE_CONFIG.url, SUPABASE_CONFIG.anonKey);
+                
+                // Test de connexion en essayant de lire la table
+                const { data, error } = await supabaseClient
+                    .from('quiz_responses')
+                    .select('count', { count: 'exact', head: true });
+                
+                if (error) {
+                    resultDiv.innerHTML = `<p style="color: red;"><strong>Erreur :</strong> ${error.message}</p>
+                    <p>Vérifie que :<br>
+                    - La table "quiz_responses" existe bien dans Supabase<br>
+                    - Tu as exécuté le script SQL database-setup.sql<br>
+                    - Les Row Level Security (RLS) sont bien configurées</p>`;
+                } else {
+                    resultDiv.innerHTML = `<p style="color: green;"><strong>✓ Connexion réussie !</strong></p>
+                    <p>La base de données est correctement configurée.</p>
+                    <p>Nombre d'enregistrements : ${data || 0}</p>`;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `<p style="color: red;"><strong>Erreur de connexion :</strong> ${error.message}</p>
+                <p>Vérifie que config.js est correctement configuré.</p>`;
+            }
+        }
+    </script>
+</body>
+</html>
+

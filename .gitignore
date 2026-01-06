@@ -24,5 +24,8 @@ npm-debug.log*
 # Vidéos (trop volumineuses pour GitHub)
 videos/
 
+# Configuration Supabase (contient les clés API)
+config.js
+
 
 

@@ -128,10 +128,59 @@ function previousQuestion() {
   }
 }
 
-function unlockVideo(event) {
+async function unlockVideo(event) {
   event.preventDefault();
+  
+  // Récupérer les données du formulaire
+  const formData = {
+    firstname: document.getElementById("firstname").value,
+    email: document.getElementById("email").value,
+    phone: document.getElementById("phone").value,
+    instagram: document.getElementById("instagram").value,
+    answer_1: answers[0],
+    answer_2: answers[1],
+    answer_3: answers[2],
+    answer_4: answers[3],
+    answer_5: answers[4],
+    answer_6: answers[5],
+    answer_1_text: quizQuestions[0].answers[answers[0]] || null,
+    answer_2_text: quizQuestions[1].answers[answers[1]] || null,
+    answer_3_text: quizQuestions[2].answers[answers[2]] || null,
+    answer_4_text: quizQuestions[3].answers[answers[3]] || null,
+    answer_5_text: quizQuestions[4].answers[answers[4]] || null,
+    answer_6_text: quizQuestions[5].answers[answers[5]] || null
+  };
+
+  // Envoyer les données à Supabase si configuré
+  if (typeof SUPABASE_CONFIG !== 'undefined' && SUPABASE_CONFIG.url && SUPABASE_CONFIG.anonKey) {
+    try {
+      // Initialiser le client Supabase
+      const { createClient } = supabase;
+      const supabaseClient = createClient(SUPABASE_CONFIG.url, SUPABASE_CONFIG.anonKey);
+      
+      // Insérer les données dans la base de données
+      const { data, error } = await supabaseClient
+        .from('quiz_responses')
+        .insert([formData])
+        .select();
+
+      if (error) {
+        console.error('Erreur lors de l\'enregistrement:', error);
+        // Continuer quand même pour ne pas bloquer l'utilisateur
+      } else {
+        console.log('Données enregistrées avec succès:', data);
+      }
+    } catch (error) {
+      console.error('Erreur de connexion à Supabase:', error);
+      // Continuer quand même pour ne pas bloquer l'utilisateur
+    }
+  } else {
+    console.warn('Supabase non configuré. Les données ne seront pas enregistrées.');
+  }
+
+  // Afficher la vidéo
   const video = document.getElementById("unlocked-video");
-  video.load(); // Recharge la vidéo pour s'assurer qu'elle est prête
+  video.load();
   showScreen("video");
 }
 
