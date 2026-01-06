@@ -1,0 +1,14 @@
+# Configuration Netlify
+[build]
+  # Pas de commande de build nécessaire pour un site statique
+  publish = "."
+
+[build.environment]
+  # Configuration par défaut
+
+# Redirection pour SPA (Single Page Application) si nécessaire
+# [[redirects]]
+#   from = "/*"
+#   to = "/index.html"
+#   status = 200
+
