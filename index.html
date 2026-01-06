@@ -35,15 +35,19 @@
                 </div>
 
                 <div class="video-preview">
-                    <div class="video-container">
-                        <div class="video-placeholder">
-                            <div class="lock-overlay">
-                                <span class="lock-icon">🔒</span>
-                            </div>
-                            <div class="youtube-footer">
-                                <span class="youtube-logo">▶</span>
-                                <span>Regarder sur YouTube</span>
-                            </div>
+                    <div class="video-container video-locked">
+                        <video 
+                            class="video-blurred"
+                            muted
+                            loop
+                            autoplay
+                            playsinline
+                            preload="metadata">
+                            <source src="videos/video.mp4.mp4" type="video/mp4">
+                        </video>
+                        <div class="lock-overlay">
+                            <span class="lock-icon">🔒</span>
+                            <p class="lock-text">Réponds au quiz pour débloquer la vidéo</p>
                         </div>
                     </div>
                 </div>
@@ -212,14 +216,19 @@
                 <div class="video-preview">
                     <div class="video-container">
                         <div class="video-container-unlocked">
-                            <iframe 
+                            <video 
                                 id="unlocked-video" 
-                                src="" 
-                                frameborder="0" 
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                                allowfullscreen>
-                            </iframe>
+                                controls
+                                playsinline
+                                preload="metadata">
+                                <source src="videos/video.mp4.mp4" type="video/mp4">
+                                Ton navigateur ne supporte pas la lecture de vidéos.
+                            </video>
                         </div>
+                    </div>
+                    <p class="warning-text" style="margin-top: 24px; margin-bottom: 16px;">Accède <strong>GRATUITEMENT</strong> au groupe en envoyant « <strong>GO</strong> » après avoir cliqué juste en dessous.</p>
+                    <div class="cta-section">
+                        <a href="https://t.me/mathieubsupport" id="telegram-link" class="btn-primary" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation(); return true;">COMMENCER MAINTENANT</a>
                     </div>
                     <p class="video-description">*La vidéo à laquelle tu as accès gratuitement est normalement vendue +1000€.</p>
                 </div>

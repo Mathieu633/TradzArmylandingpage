@@ -131,7 +131,7 @@ function previousQuestion() {
 function unlockVideo(event) {
   event.preventDefault();
   const video = document.getElementById("unlocked-video");
-  video.src = "https://www.youtube.com/embed/dQw4w9WgXcQ";
+  video.load(); // Recharge la vidéo pour s'assurer qu'elle est prête
   showScreen("video");
 }
 
@@ -152,4 +152,15 @@ document.addEventListener("keydown", (e) => {
 
 // Initial
 showScreen("home");
+
+// Gestion du lien Telegram
+document.addEventListener('DOMContentLoaded', function() {
+  const telegramLink = document.getElementById('telegram-link');
+  if (telegramLink) {
+    telegramLink.addEventListener('click', function(e) {
+      e.stopPropagation();
+      window.open('https://t.me/mathieubsupport', '_blank', 'noopener,noreferrer');
+    });
+  }
+});
 

@@ -56,3 +56,5 @@ git push -u origin main
 
 Le fichier `.gitignore` exclut `node_modules/` pour éviter de pousser des dépendances volumineuses.
 
+
+
