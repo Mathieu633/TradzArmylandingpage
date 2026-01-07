@@ -305,6 +305,11 @@
 
     <!-- Supabase Client -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <!-- Injecter les variables d'environnement Netlify si disponibles -->
+    <script>
+        // Netlify injecte les variables d'environnement via process.env, mais côté client on doit les passer manuellement
+        // Les valeurs par défaut seront utilisées si les variables ne sont pas définies
+    </script>
     <script src="config.js"></script>
     <script src="script.js"></script>
 </body>
