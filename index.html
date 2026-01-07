@@ -36,15 +36,13 @@
 
                 <div class="video-preview">
                     <div class="video-container video-locked">
-                        <video 
+                        <iframe 
                             class="video-blurred"
-                            muted
-                            loop
-                            autoplay
-                            playsinline
-                            preload="metadata">
-                            <source src="videos/video.mp4.mp4" type="video/mp4">
-                        </video>
+                            src="https://www.youtube.com/embed/vxUEtYmB6og?autoplay=1&mute=1&loop=1&controls=0&playlist=vxUEtYmB6og&modestbranding=1&rel=0"
+                            frameborder="0"
+                            allow="autoplay; encrypted-media"
+                            allowfullscreen>
+                        </iframe>
                         <div class="lock-overlay">
                             <span class="lock-icon">🔒</span>
                             <p class="lock-text">Réponds au quiz pour débloquer la vidéo</p>
@@ -216,14 +214,13 @@
                 <div class="video-preview">
                     <div class="video-container">
                         <div class="video-container-unlocked">
-                            <video 
+                            <iframe 
                                 id="unlocked-video" 
-                                controls
-                                playsinline
-                                preload="metadata">
-                                <source src="videos/video.mp4.mp4" type="video/mp4">
-                                Ton navigateur ne supporte pas la lecture de vidéos.
-                            </video>
+                                src="https://www.youtube.com/embed/vxUEtYmB6og?modestbranding=1&rel=0"
+                                frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowfullscreen>
+                            </iframe>
                         </div>
                     </div>
                     <p class="warning-text" style="margin-top: 24px; margin-bottom: 16px;">Accède <strong>GRATUITEMENT</strong> au groupe en envoyant « <strong>GO</strong> » après avoir cliqué juste en dessous.</p>

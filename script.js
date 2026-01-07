@@ -178,9 +178,7 @@ async function unlockVideo(event) {
     console.warn('Supabase non configuré. Les données ne seront pas enregistrées.');
   }
 
-  // Afficher la vidéo
-  const video = document.getElementById("unlocked-video");
-  video.load();
+  // Afficher la vidéo (déjà chargée via iframe YouTube)
   showScreen("video");
 }
 
