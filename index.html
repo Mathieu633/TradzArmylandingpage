@@ -302,12 +302,15 @@
 
     <!-- Supabase Client -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <!-- Injecter les variables d'environnement Netlify si disponibles -->
+    <!-- Configuration Supabase -->
     <script>
-        // Netlify injecte les variables d'environnement via process.env, mais côté client on doit les passer manuellement
-        // Les valeurs par défaut seront utilisées si les variables ne sont pas définies
+        // Configuration Supabase
+        // Les valeurs sont directement dans le code pour fonctionner sur Netlify et en local
+        const SUPABASE_CONFIG = {
+            url: 'https://husvknpjlwicjoaxrudl.supabase.co',
+            anonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh1c3ZrbnBqbHdpY2pvYXhydWRsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njc3Mzg0NTAsImV4cCI6MjA4MzMxNDQ1MH0.9jG3M-sJ7lQV-YOUylspNmdFHLtHCzkB5dJr1P_BX4U'
+        };
     </script>
-    <script src="config.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
