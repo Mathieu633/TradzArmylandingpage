@@ -10,151 +10,430 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Écran d'accueil -->
-    <div id="home-screen" class="screen active">
+    <!-- Sprites SVG icônes -->
+    <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+        <symbol id="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5L19 7"/></symbol>
+        <symbol id="icon-flag" viewBox="0 0 24 24" fill="currentColor"><path d="M14.4 6L14 4H5v17h2v-7h5.6l.4 2h7V6h-5.6z"/></symbol>
+        <symbol id="icon-square" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"/></symbol>
+        <symbol id="icon-brain" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5a3 3 0 1 0 0 6 3 3 0 0 0 0-6zM9 9a5 5 0 0 0 6 0M8 14c-1.5 1-3 1.5-4 1.5-1 0-2-.5-2.5-1.5M16 14c1.5 1 3 1.5 4 1.5 1 0 2-.5 2.5-1.5M12 14v4M9 18h6"/></symbol>
+        <symbol id="icon-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></symbol>
+        <symbol id="icon-building" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M3 10h18M5 6l7-3 7 3M5 10v11M9 10v11M15 10v11M19 10v11"/></symbol>
+        <symbol id="icon-chart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18V3H3zM7 14v4M11 10v8M15 6v12M19 2v20"/></symbol>
+        <symbol id="icon-scale" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v18M3 8h18M8 6l4 4 4-4M8 14l4 4 4-4"/></symbol>
+        <symbol id="icon-gear" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></symbol>
+        <symbol id="icon-target" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></symbol>
+        <symbol id="icon-gift" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13M12 8c-1.5 0-3-1.5-3-3.5S10.5 2 12 2s3 2.5 3 4.5-1.5 3.5-3 3.5zM12 8c1.5 0 3-1.5 3-3.5S13.5 2 12 2"/></symbol>
+        <symbol id="icon-money" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M12 8v8M9 11h6M9 13h6"/></symbol>
+        <symbol id="icon-bills" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="14" rx="1"/><path d="M12 7v10M9 10h6M9 12h6"/></symbol>
+        <symbol id="icon-laptop-play" viewBox="0 0 24 24" fill="currentColor"><rect x="2" y="4" width="20" height="12" rx="1"/><path d="M1 18h22v2H1z"/><path d="M10 9v6l5-3-5-3z"/></symbol>
+        <symbol id="icon-trophy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6M18 9h1.5a2.5 2.5 0 0 0 0-5H18M6 5V4M18 5V4M6 5v4a4 4 0 0 0 6 2 4 4 0 0 0 6-2V5M6 9v9a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V9"/><path d="M12 13v4M8 21h8"/></symbol>
+        <symbol id="icon-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></symbol>
+        <symbol id="icon-phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></symbol>
+        <symbol id="icon-star" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></symbol>
+        <symbol id="icon-volume" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07M19.07 4.93a10 10 0 0 1 0 14.14"/></symbol>
+        <symbol id="icon-volume-mute" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></symbol>
+        <symbol id="icon-fullscreen" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></symbol>
+        <symbol id="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></symbol>
+        <symbol id="icon-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></symbol>
+    </svg>
+    <!-- Page principale - une seule page avec scroll -->
+    <div id="main-page" class="page">
         <div class="content-wrapper">
             <div class="container">
                 <div class="logo-container">
-                    <a href="#" class="logo-link" onclick="event.preventDefault(); showHomeScreen();">
+                    <a href="#" class="logo-link">
                         <img src="images/logo-ta.png" alt="Tradz Army Logo" class="logo">
                     </a>
                 </div>
-                <p class="reveal-text">NOUS RÉVÉLONS ENFIN</p>
-                <h1 class="main-title">LA MÉTHODE EXACTE QUE NOUS AVONS UTILISÉE POUR PASSER DE SALARIÉ BROKE <span class="title-accent">À 5 CHIFFRES/MOIS GRÂCE AU TRADING</span></h1>
+                <h1 class="main-title">
+                    <span class="title-line">En 6 Minutes, Tu Comprendras</span>
+                    <span class="title-line"><span class="title-accent-blue">La Compétence</span> Qui M'a</span>
+                    <span class="title-line">Rendu Libre À 22 Ans</span>
+                </h1>
                 <p class="subtitle">(Et comment tu peux faire pareil)</p>
                 <div class="divider"></div>
-                <p class="warning-text"><strong>Attention :</strong> Cette opportunité est réservée à un profil précis. Passe ce test pour savoir si tu es éligible à nos méthodes.</p>
-                <div class="cta-section">
-                    <p class="limited-places">(Limité à 20 places ce mois-ci)</p>
-                    <button class="btn-primary" onclick="startQuiz()">PASSER LE TEST </button>
-                    <div class="time-indicator">
-                        <svg class="clock-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.5"/>
-                            <line x1="8" y1="8" x2="8" y2="5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-                            <line x1="8" y1="8" x2="10.5" y2="8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-                        </svg>
-                        <span>Moins d'une minute</span>
-                    </div>
-                </div>
 
+                <!-- Section VSL -->
                 <div class="video-preview">
-                    <div class="video-container video-locked">
-                        <iframe 
-                            class="video-blurred"
-                            src="https://www.youtube.com/embed/vxUEtYmB6og?autoplay=1&mute=1&loop=1&controls=0&playlist=vxUEtYmB6og&modestbranding=1&rel=0&enablejsapi=1&origin=https://mathieub.com"
-                            frameborder="0"
-                            allow="autoplay; encrypted-media"
-                            allowfullscreen>
-                        </iframe>
-                        <div class="lock-overlay">
-                            <span class="lock-icon">🔒</span>
-                            <p class="lock-text">Réponds au quiz pour débloquer la vidéo</p>
+                    <div class="video-container video-locked" id="video-container">
+                        <video id="main-video" class="custom-video" preload="metadata" poster="" playsinline>
+                            <source src="videos/video.mp4.mp4" type="video/mp4">
+                        </video>
+                        <div class="video-play-overlay" id="lock-overlay" onclick="handleVideoOverlayClick()">
+                            <button class="custom-play-btn" aria-label="Lire la vidéo">
+                                <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <defs>
+                                        <linearGradient id="playBtnGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                            <stop offset="0%" stop-color="#B8860B"/>
+                                            <stop offset="50%" stop-color="#D4AF37"/>
+                                            <stop offset="100%" stop-color="#C9A961"/>
+                                        </linearGradient>
+                                    </defs>
+                                    <rect width="80" height="80" rx="0" fill="url(#playBtnGradient)"/>
+                                    <path d="M32 24L32 56L56 40L32 24Z" fill="white"/>
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="video-controls" id="video-controls" style="display: none;">
+                            <button class="ctrl-btn" id="btn-mute" onclick="toggleMute()" aria-label="Son"><svg class="icon icon-ctrl"><use href="#icon-volume"/></svg></button>
+                            <button class="ctrl-btn" onclick="toggleFullscreen()" aria-label="Plein écran"><svg class="icon icon-ctrl"><use href="#icon-fullscreen"/></svg></button>
                         </div>
                     </div>
-                </div>
-                <div class="video-note">
-                    <span><em>*La vidéo à laquelle tu pourras accéder gratuitement est normalement vendue +1000€.</em></span>
+                    <div class="video-unlock-cta" id="video-unlock-cta">
+                        <button class="btn-primary btn-unlock" onclick="openUnlockModal()">DÉBLOQUE LA VIDÉO</button>
+                    </div>
+                    <div class="stats-row stats-below-video">
+                        <div class="stat-item">
+                            <span class="stat-icon"><svg class="icon"><use href="#icon-bills"/></svg></span>
+                            <span class="stat-number">+100K</span>
+                            <span class="stat-desc">Générés par nos membres</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-icon"><svg class="icon"><use href="#icon-trophy"/></svg></span>
+                            <span class="stat-number">+100</span>
+                            <span class="stat-desc">Traders formés</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-icon"><svg class="icon"><use href="#icon-laptop-play"/></svg></span>
+                            <span class="stat-number">+10</span>
+                            <span class="stat-desc">Heures des vidéos</span>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="cta-section">
-                    <div class="social-proof">
-                        <div class="avatars">
-                            <div class="avatar"><img src="https://randomuser.me/api/portraits/men/21.jpg" alt="Personne 1 (18-25)"></div>
-                            <div class="avatar"><img src="https://randomuser.me/api/portraits/men/23.jpg" alt="Personne 2 (18-25)"></div>
-                            <div class="avatar"><img src="https://randomuser.me/api/portraits/men/25.jpg" alt="Personne 3 (18-25)"></div>
-                        </div>
-                        <span>Rejoins Les Personnes Déjà Inscrites</span>
-                    </div>
+                <!-- CTA après vidéo débloquée -->
+                <div class="video-cta-unlocked" id="video-cta-unlocked" style="display: none;">
+                    <p class="warning-text">Accède <strong>GRATUITEMENT</strong> au groupe en envoyant « <strong>GO</strong> » après avoir cliqué juste en dessous.</p>
+                    <a href="https://t.me/mathieubsupport" class="btn-primary" target="_blank" rel="noopener noreferrer">COMMENCER MAINTENANT</a>
                 </div>
+
+                <!-- 1. Les 3 étapes pour réussir -->
+                <section class="section section-etapes">
+                    <h2 class="section-title">Les 3 Étapes Essentiels Pour <span class="accent">Réussir.</span></h2>
+                    <div class="etapes-grid">
+                        <div class="etape-card">
+                            <h3 class="etape-title">APPRENTISSAGE</h3>
+                            <p class="etape-desc">On t'a menti toute ta vie sur la réalité du trading.</p>
+                            <ul class="etape-list">
+                                <li><svg class="icon icon-check"><use href="#icon-check"/></svg> Maîtrisez et appliquez les fondamentaux du trading.</li>
+                                <li><svg class="icon icon-check"><use href="#icon-check"/></svg> Devenir rentable et construire son système de trading.</li>
+                            </ul>
+                            <div class="etape-image"><img src="images/apprentissage.png" alt="Apprentissage trading" class="etape-img"></div>
+                        </div>
+                        <div class="etape-card">
+                            <h3 class="etape-title">FINANCEMENT</h3>
+                            <p class="etape-desc">Accède à du financement et fait <strong>grossir ton capital.</strong></p>
+                            <ul class="etape-list">
+                                <li><svg class="icon icon-check"><use href="#icon-check"/></svg> Valider un challenge et obtenir ton premier payout.</li>
+                                <li><svg class="icon icon-check"><use href="#icon-check"/></svg> Multiplier ses comptes financés pour faire grossir son capital.</li>
+                            </ul>
+                            <div class="etape-image"><img src="images/financement.png" alt="Financement FTMO" class="etape-img"></div>
+                        </div>
+                        <div class="etape-card">
+                            <h3 class="etape-title">DEVENIR LIBRE</h3>
+                            <p class="etape-desc">Plus personne ne décide de ton emploi du temps, ni de ton salaire.</p>
+                            <ul class="etape-list">
+                                <li><svg class="icon icon-check"><use href="#icon-check"/></svg> Construire une vie où personne n'a de pouvoir sur soi.</li>
+                                <li><svg class="icon icon-check"><use href="#icon-check"/></svg> Vivre la vie que tu mérites.</li>
+                            </ul>
+                            <div class="etape-image"><img src="images/devenir-libre.png" alt="Devenir libre" class="etape-img"></div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 2. En appliquant notre méthode... -->
+                <section class="section section-appliquer">
+                    <h2 class="section-title appliquer-title">En Appliquant Notre Protocole, Vous Serez En Mesure <span class="accent">D'obtenir</span> Ce Type De <span class="accent">Résultats.</span></h2>
+                    <div class="resultats-carousel">
+                        <button type="button" class="carousel-btn carousel-prev" aria-label="Image précédente">&lsaquo;</button>
+                        <div class="resultats-carousel-track-wrap">
+                            <div class="resultats-carousel-track">
+                                <div class="resultat-slide"><img src="images/resultats-1.png" alt="Certificat FTMO"></div>
+                                <div class="resultat-slide"><img src="images/resultats-2.png" alt="Certificat FTMO"></div>
+                                <div class="resultat-slide"><img src="images/resultats-3.png" alt="Certificat FTMO"></div>
+                                <div class="resultat-slide"><img src="images/resultats-4.png" alt="Certificat FTMO"></div>
+                                <div class="resultat-slide"><img src="images/resultats-5.png" alt="Certificat FTMO"></div>
+                                <div class="resultat-slide"><img src="images/resultats-6.png" alt="Certificat FTMO"></div>
+                            </div>
+                        </div>
+                        <button type="button" class="carousel-btn carousel-next" aria-label="Image suivante">&rsaquo;</button>
+                        <div class="resultats-carousel-dots"></div>
+                    </div>
+                </section>
+
+                <!-- 3. Tout ce dont vous avez besoins pour réussir -->
+                <section class="section section-tout-besoin">
+                    <h2 class="section-title">Tout Ce Dont Vous Avez Besoin Pour <span class="accent">Réussir.</span></h2>
+                    <div class="besoin-carousel">
+                        <button type="button" class="carousel-btn carousel-prev besoin-carousel-prev" aria-label="Précédent">&lsaquo;</button>
+                        <div class="besoin-carousel-track-wrap">
+                            <div class="besoin-carousel-track">
+                                <div class="besoin-slide">
+                                    <div class="besoin-card">
+                                        <div class="besoin-image"><img src="images/copy-trading.png" alt="Tradz Army Signaux"></div>
+                                        <h3 class="besoin-title">Copy Trading</h3>
+                                        <p class="besoin-desc">Suivez automatiquement les trades des meilleurs traders et répliquez leurs performances sur votre compte.</p>
+                                    </div>
+                                </div>
+                                <div class="besoin-slide">
+                                    <div class="besoin-card">
+                                        <div class="besoin-image"><img src="images/formation-complete.png" alt="Tradz Army Formation"></div>
+                                        <h3 class="besoin-title">Formation complète</h3>
+                                        <p class="besoin-desc">Maîtrisez et appliquez les fondamentaux du trading avec la stratégie la plus efficace et la plus rentable au monde pour atteindre le succès ultime.</p>
+                                    </div>
+                                </div>
+                                <div class="besoin-slide">
+                                    <div class="besoin-card">
+                                        <div class="besoin-image"><img src="images/communaute.png" alt="Tradz Army Discussion"></div>
+                                        <h3 class="besoin-title">Communauté</h3>
+                                        <p class="besoin-desc">Affinez vos compétences en matière de trading et entrez en contact avec ceux qui ont déjà atteint le succès que vous souhaitez dans ma communauté.</p>
+                                    </div>
+                                </div>
+                                <div class="besoin-slide">
+                                    <div class="besoin-card">
+                                        <div class="besoin-image"><img src="images/live-trading.png" alt="Live trading session"></div>
+                                        <h3 class="besoin-title">Live trading sessions</h3>
+                                        <p class="besoin-desc">Regardez-moi en direct en utilisant la même stratégie puissante que vous avez apprise lors de sessions de trading en temps réel.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" class="carousel-btn carousel-next besoin-carousel-next" aria-label="Suivant">&rsaquo;</button>
+                        <div class="besoin-carousel-dots"></div>
+                    </div>
+                    <a href="https://t.me/mathieubsupport" class="btn-primary btn-rejoindre" target="_blank" rel="noopener noreferrer">Rejoindre le groupe</a>
+                </section>
+
+                <!-- 4. Les différents modules de la formation -->
+                <section class="section section-modules">
+                    <h2 class="section-title">Les Différents <span class="accent">Modules</span> De La Formation.</h2>
+                    <p class="modules-subtitle">Un accompagnement complet avec tous les outils et ressources nécessaires pour devenir un trader rentable</p>
+                    <div class="modules-carousel">
+                        <button type="button" class="carousel-btn carousel-prev modules-carousel-prev" aria-label="Précédent">&lsaquo;</button>
+                        <div class="modules-carousel-track-wrap">
+                            <div class="modules-carousel-track">
+                                <div class="module-slide">
+                                    <div class="module-card">
+                                        <span class="module-icon"><svg class="icon"><use href="#icon-flag"/></svg></span>
+                                        <h4 class="module-title">Introduction</h4>
+                                        <p class="module-desc">Présentation de la formation, ses avantages et comment tirer le meilleur parti de cette formation.</p>
+                                    </div>
+                                </div>
+                                <div class="module-slide">
+                                    <div class="module-card">
+                                        <span class="module-icon"><svg class="icon"><use href="#icon-square"/></svg></span>
+                                        <h4 class="module-title">Les bases du trading</h4>
+                                        <p class="module-desc">Apprends les fondamentaux des marchés financiers et maîtriser les concepts de base.</p>
+                                    </div>
+                                </div>
+                                <div class="module-slide">
+                                    <div class="module-card">
+                                        <span class="module-icon"><svg class="icon"><use href="#icon-brain"/></svg></span>
+                                        <h4 class="module-title">Psychologie/Mindset</h4>
+                                        <p class="module-desc">Développe un mental de trader pro: maîtrise tes émotions, comprends tes biais psychologiques et adopte un état d'esprit discipliné et constant.</p>
+                                    </div>
+                                </div>
+                                <div class="module-slide">
+                                    <div class="module-card">
+                                        <span class="module-icon"><svg class="icon"><use href="#icon-search"/></svg></span>
+                                        <h4 class="module-title">L'analyse technique</h4>
+                                        <p class="module-desc">Maîtriser la lecture du prix, comprendre comment pensent et opèrent les institutionnels et savoir identifier les zones clés où le marché réagit.</p>
+                                    </div>
+                                </div>
+                                <div class="module-slide">
+                                    <div class="module-card">
+                                        <span class="module-icon"><svg class="icon"><use href="#icon-building"/></svg></span>
+                                        <h4 class="module-title">L'analyse fondamentale</h4>
+                                        <p class="module-desc">Apprends le fonctionnement de l'économie et apprends à combiner analyse fondamentale et technique pour prendre des décisions plus pertinentes.</p>
+                                    </div>
+                                </div>
+                                <div class="module-slide">
+                                    <div class="module-card">
+                                        <span class="module-icon"><svg class="icon"><use href="#icon-chart"/></svg></span>
+                                        <h4 class="module-title">La stratégie</h4>
+                                        <p class="module-desc">Apprends une stratégie de trading complète à adapter à ton profil, en définissant clairement tes règles d'entrée, de sortie et ta gestion de risque.</p>
+                                    </div>
+                                </div>
+                                <div class="module-slide">
+                                    <div class="module-card">
+                                        <span class="module-icon"><svg class="icon"><use href="#icon-scale"/></svg></span>
+                                        <h4 class="module-title">Gestion du risque & Money Management</h4>
+                                        <p class="module-desc">Apprends à protéger ton capital, gérer ton risque par trade et bâtir une approche durable grâce à un money management rigoureux.</p>
+                                    </div>
+                                </div>
+                                <div class="module-slide">
+                                    <div class="module-card">
+                                        <span class="module-icon"><svg class="icon"><use href="#icon-gear"/></svg></span>
+                                        <h4 class="module-title">Backtesting</h4>
+                                        <p class="module-desc">Teste et valide ta stratégie avant le passage en réel grâce au backtesting et à l'analyse statistique de tes performances.</p>
+                                    </div>
+                                </div>
+                                <div class="module-slide">
+                                    <div class="module-card">
+                                        <span class="module-icon"><svg class="icon"><use href="#icon-target"/></svg></span>
+                                        <h4 class="module-title">Passage des Prop Firms</h4>
+                                        <p class="module-desc">Prépare-toi à réussir les challenges des Prop Firms : règles, plan d'action, discipline, et gestion émotionnelle pendant les phases d'évaluation.</p>
+                                    </div>
+                                </div>
+                                <div class="module-slide">
+                                    <div class="module-card">
+                                        <span class="module-icon"><svg class="icon"><use href="#icon-chart"/></svg></span>
+                                        <h4 class="module-title">Scaling de capital</h4>
+                                        <p class="module-desc">Apprends à faire croître ton capital progressivement grâce aux programmes de scaling et à l'adaptation de ta stratégie à des montants plus importants.</p>
+                                    </div>
+                                </div>
+                                <div class="module-slide">
+                                    <div class="module-card">
+                                        <span class="module-icon"><svg class="icon"><use href="#icon-building"/></svg></span>
+                                        <h4 class="module-title">Fiscalité</h4>
+                                        <p class="module-desc">Découvre la fiscalité du trading, les statuts possibles, et comment rester conforme tout en optimisant tes revenus de trader financé.</p>
+                                    </div>
+                                </div>
+                                <div class="module-slide">
+                                    <div class="module-card">
+                                        <span class="module-icon"><svg class="icon"><use href="#icon-gift"/></svg></span>
+                                        <h4 class="module-title">Bonus & Études de cas</h4>
+                                        <p class="module-desc">Analyse des cas concrets de traders financés, exemples de trades réels, modèles, checklists et plan d'action complet vers l'indépendance financière.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" class="carousel-btn carousel-next modules-carousel-next" aria-label="Suivant">&rsaquo;</button>
+                        <div class="modules-carousel-dots"></div>
+                    </div>
+                </section>
+
+                <!-- 5. Les résultats que tu peux atteindre -->
+                <section class="section section-resultats">
+                    <div class="resultats-content">
+                        <div class="resultats-text">
+                            <h2 class="section-title">Les Résultats Que Tu Peux Atteindre.</h2>
+                            <p class="resultats-para">En appliquant tout ce qui est expliqué dans le Programme et en ayant la discipline et la persévérance, tu pourras avoir ce genre de résultats.</p>
+                            <p class="resultats-sub">Mais pas uniquement :</p>
+                            <ul class="resultats-list">
+                                <li><svg class="icon icon-check"><use href="#icon-check"/></svg> Tu deviendras une meilleure version de toi-même</li>
+                                <li><svg class="icon icon-check"><use href="#icon-check"/></svg> Tu vas apprendre à contrôler tes émotions et à devenir discipliné</li>
+                            </ul>
+                            <p class="resultats-para">Le Programme est aussi là pour t'aider à améliorer tous les points extérieurs au trading car il est essentiel de comprendre la psychologie et de développer une stabilité pour réussir (hygiène de vie, routine...).</p>
+                            <blockquote class="resultats-quote">"En suivant le chemin qui s'appelle plus tard, nous arrivons sur la place qui s'appelle jamais." - Sénèque</blockquote>
+                        </div>
+                        <div class="resultats-card">
+                            <img src="images/resultat-mathieu.png" alt="Résultats Mathieu B. - Rang #9, Profit €43,521" class="resultats-card-img">
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section FAQ -->
+                <section class="section section-stats-cta">
+                    <div class="section-faq-inner">
+                        <h2 class="section-title">Obtenez une Reponse A <span class="accent">Vos Questions</span></h2>
+                        <p class="faq-subtitle">Tout ce que vous devez savoir sur notre programme.</p>
+                        <div class="faq-accordion">
+                            <div class="faq-item">
+                                <div class="faq-question" onclick="toggleFaq(this)">
+                                    <span>Qu'est ce que le Programme contient ?</span>
+                                    <span class="faq-chevron">+</span>
+                                </div>
+                                <div class="faq-answer">
+                                    Le programme comprend plus de 60 heures de formation vidéo, des sessions de trading en direct hebdomadaires, un accès à notre communauté privée, et tous les outils nécessaires pour devenir un trader profitable en 120 jours maximum.
+                                </div>
+                            </div>
+                            <div class="faq-item">
+                                <div class="faq-question" onclick="toggleFaq(this)">
+                                    <span>Quels sont les prérequis pour rejoindre le Programme ?</span>
+                                    <span class="faq-chevron">+</span>
+                                </div>
+                                <div class="faq-answer">
+                                    Il n'y a pas de prérequis techniques. Tout ce dont tu as besoin, c'est une connexion internet, un ordinateur, et la motivation pour apprendre. Nous t'accompagnons à partir de zéro.
+                                </div>
+                            </div>
+                            <div class="faq-item">
+                                <div class="faq-question" onclick="toggleFaq(this)">
+                                    <span>Je fais des études, est-ce que le programme peut fonctionner pour moi ?</span>
+                                    <span class="faq-chevron">+</span>
+                                </div>
+                                <div class="faq-answer">
+                                    Oui, le programme est conçu pour être flexible. Tu peux suivre les formations à ton rythme et gérer ton temps selon tes disponibilités. Beaucoup de traders ont commencé en parallèle de leurs études.
+                                </div>
+                            </div>
+                            <div class="faq-item">
+                                <div class="faq-question" onclick="toggleFaq(this)">
+                                    <span>Je n'ai pas beaucoup de temps, puis-je postuler ?</span>
+                                    <span class="faq-chevron">+</span>
+                                </div>
+                                <div class="faq-answer">
+                                    Oui, le programme s'adapte à ton emploi du temps. Les vidéos sont disponibles à tout moment et tu peux progresser à ton rythme. Même quelques heures par semaine suffisent pour avancer efficacement.
+                                </div>
+                            </div>
+                            <div class="faq-item">
+                                <div class="faq-question" onclick="toggleFaq(this)">
+                                    <span>Et si je ne connais rien aux marchés financiers ?</span>
+                                    <span class="faq-chevron">+</span>
+                                </div>
+                                <div class="faq-answer">
+                                    Le programme est conçu pour les débutants. Nous partons des bases fondamentales et vous accompagnons pas à pas jusqu'à la maîtrise. Tu n'as pas besoin de connaissances préalables.
+                                </div>
+                            </div>
+                            <div class="faq-item">
+                                <div class="faq-question" onclick="toggleFaq(this)">
+                                    <span>En combien de temps puis-je devenir rentable grâce à l'accompagnement ?</span>
+                                    <span class="faq-chevron">+</span>
+                                </div>
+                                <div class="faq-answer">
+                                    Les résultats varient selon l'implication et la régularité de chacun. Avec notre méthode et notre accompagnement, l'objectif est de devenir rentable en maximum 120 jours en suivant le programme de formation.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section Disclaimers -->
+                <section class="section section-disclaimer">
+                    <h3 class="disclaimer-title">Avertissement sur les revenus</h3>
+                    <p class="disclaimer-text">Aucune Garantie de Résultats ou de Revenu. Les informations et témoignages présentés sont spécifiques et ne garantissent pas des résultats typiques.</p>
+                    <p class="disclaimer-date">Dernière mise à jour : Février 2025</p>
+                </section>
+
+                <!-- FAQ - Tout en bas -->
+                <section class="section section-faq-cta">
+                    <div class="faq-cta-box">
+                        <h2 class="section-title">Vous avez d'autres questions ?</h2>
+                        <p class="section-text">Notre équipe est là pour vous aider. Réservez un appel gratuit pour obtenir toutes les réponses à vos questions.</p>
+                        <div class="cta-buttons">
+                            <button class="btn-primary" onclick="openUnlockModal()">Réserver un Call Gratuit</button>
+                            <a href="https://t.me/mathieubsupport" class="btn-secondary" target="_blank" rel="noopener noreferrer">Rejoindre le Groupe</a>
+                        </div>
+                    </div>
+                </section>
             </div>
         </div>
     </div>
 
-    <!-- Écran de quiz -->
-    <div id="quiz-screen" class="screen">
-        <div class="content-wrapper">
-            <div class="container">
-                <div class="logo-container">
-                    <a href="#" class="logo-link" onclick="event.preventDefault(); showHomeScreen();">
-                        <img src="images/logo-ta.png" alt="Tradz Army Logo" class="logo">
-                    </a>
+    <!-- Modal déblocage vidéo (Prénom + Email uniquement) -->
+    <div id="unlock-modal" class="modal">
+        <div class="modal-overlay" onclick="closeUnlockModal()"></div>
+        <div class="modal-content modal-unlock">
+            <button class="modal-close" onclick="closeUnlockModal()" aria-label="Fermer"><svg class="icon icon-close"><use href="#icon-close"/></svg></button>
+            <h2 class="modal-title">Remplis tes informations pour accéder à la vidéo</h2>
+            <form id="unlock-form" onsubmit="unlockVideo(event)">
+                <div class="form-group">
+                    <label for="firstname">Prénom <span class="required">*</span></label>
+                    <input type="text" id="firstname" name="firstname" placeholder="Ton prénom" required>
                 </div>
-                <div class="progress-section">
-                    <div class="progress-bar">
-                        <div class="progress-fill" id="progress-fill"></div>
-                    </div>
-                    <div class="time-indicator">
-                        <svg class="clock-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.5"/>
-                            <line x1="8" y1="8" x2="8" y2="5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-                            <line x1="8" y1="8" x2="10.5" y2="8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-                        </svg>
-                        <span>Moins d'une minute</span>
-                    </div>
+                <div class="form-group">
+                    <label for="email">Email <span class="required">*</span></label>
+                    <input type="email" id="email" name="email" placeholder="ton@email.com" required>
                 </div>
-
-                <div class="question-container">
-                    <h2 class="question" id="question-text"></h2>
-                    <div class="answers-container" id="answers-container"></div>
-                    <button class="btn-previous" id="btn-previous" onclick="previousQuestion()" style="display: none;">
-                        <span>←</span> Précédent
-                    </button>
-                </div>
-            </div>
+                <button type="submit" class="btn-primary btn-full">ACCÉDER À LA VIDÉO</button>
+            </form>
         </div>
     </div>
 
-    <!-- Écran de félicitations -->
-    <div id="congrats-screen" class="screen">
-        <div class="content-wrapper">
-                <div class="container">
-                <div class="logo-container">
-                    <a href="#" class="logo-link" onclick="event.preventDefault(); showHomeScreen();">
-                        <img src="images/logo-ta.png" alt="Tradz Army Logo" class="logo">
-                    </a>
-                </div>
-                <h2 class="congrats-title">FÉLICITATION !</h2>
-                <p class="congrats-text">Seuls <strong>14,3%</strong> des participants ont réussi ce test avec succès.</p>
-                <p class="congrats-main"><strong>Tu fais partie des <span class="gradient-text">top participants</span> qui ont le bon profil pour accéder à nos méthodes <span class="gradient-text">100% gratuites</span> (valeur : <span class="gradient-text">+1000€</span>).</strong></p>
-                <p class="congrats-text">Tu y découvriras NOS stratégies qu'utilisent les 138 personnes que nous avons pu former pour obtenir <strong>5k€ par mois atteignables en 90 jours</strong> grâce au trading.</p>
-
-                <div class="form-container">
-                    <h3 class="form-title">Remplis tes informations !</h3>
-                    <form id="unlock-form" onsubmit="unlockVideo(event)">
-                        <div class="form-group">
-                            <label for="firstname">Ton prénom</label>
-                            <input type="text" id="firstname" name="firstname" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="email">Ton email</label>
-                            <input type="email" id="email" name="email" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="phone">Ton numéro de téléphone</label>
-                            <input type="tel" id="phone" name="phone" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="instagram">Ton @ Instagram</label>
-                            <input type="text" id="instagram" name="instagram" placeholder="@username" required>
-                        </div>
-                        <div class="checkbox-group">
-                            <input type="checkbox" id="terms" name="terms" required>
-                            <label for="terms">
-                                J'accepte les <a href="#" class="link" onclick="event.preventDefault(); openModal('terms-modal');">conditions générales</a> et la <a href="#" class="link" onclick="event.preventDefault(); openModal('privacy-modal');">politique de confidentialité</a> de ce site internet.
-                            </label>
-                        </div>
-                        <button type="submit" class="btn-primary">SUIVANT ></button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modales (uniquement utilisées après le quiz) -->
-    <div id="terms-modal" class="modal">
+    <!-- Modales Conditions / Confidentialité -->
+    <div id="terms-modal" class="modal modal-legal">
         <div class="modal-overlay" onclick="closeModal('terms-modal')"></div>
         <div class="modal-content">
-            <button class="modal-close" onclick="closeModal('terms-modal')">×</button>
+            <button class="modal-close" onclick="closeModal('terms-modal')" aria-label="Fermer"><svg class="icon icon-close"><use href="#icon-close"/></svg></button>
             <h2 class="modal-title">Conditions générales d'utilisation</h2>
             <div class="modal-body">
                 <div class="modal-article">
@@ -167,130 +446,26 @@
                 </div>
                 <div class="modal-article">
                     <h3>Article 3 – Propriété intellectuelle</h3>
-                    <p>Le contenu du site est protégé par le droit d'auteur. Toute reproduction ou représentation totale ou partielle est interdite sans autorisation écrite préalable de Genesis Digital, LLC.</p>
+                    <p>Le contenu du site est protégé par le droit d'auteur. Toute reproduction ou représentation totale ou partielle est interdite sans autorisation écrite préalable.</p>
                 </div>
             </div>
             <button class="modal-button" onclick="closeModal('terms-modal')">FERMER</button>
         </div>
     </div>
 
-    <div id="privacy-modal" class="modal">
+    <div id="privacy-modal" class="modal modal-legal">
         <div class="modal-overlay" onclick="closeModal('privacy-modal')"></div>
         <div class="modal-content">
-            <button class="modal-close" onclick="closeModal('privacy-modal')">×</button>
+            <button class="modal-close" onclick="closeModal('privacy-modal')" aria-label="Fermer"><svg class="icon icon-close"><use href="#icon-close"/></svg></button>
             <h2 class="modal-title">Politique de confidentialité</h2>
             <div class="modal-body">
                 <div class="modal-article">
                     <h3>Article 1 – Protection des données personnelles</h3>
-                    <p>Genesis Digital, LLC s'engage à protéger la vie privée et les données personnelles des utilisateurs conformément aux lois applicables, y compris le Règlement Général sur la Protection des Données (RGPD) de l'Union européenne.</p>
+                    <p>Nous nous engageons à protéger la vie privée et les données personnelles des utilisateurs conformément aux lois applicables, y compris le RGPD.</p>
                 </div>
                 <div class="modal-article">
                     <h3>Article 2 – Droits des utilisateurs</h3>
-                    <p>Vous disposez d'un droit d'accès, de rectification, d'opposition et de suppression de vos données personnelles. Pour exercer ces droits, contactez-nous à l'adresse suivante :</p>
-                    <div class="contact-info">
-                        <p>Genesis Digital, LLC</p>
-                        <p>4730 S. Fort Apache Rd. Suite 300</p>
-                        <p>Las Vegas, NV 89147-7947</p>
-                        <p>Email :</p>
-                    </div>
-                </div>
-            </div>
-            <button class="modal-button" onclick="closeModal('privacy-modal')">FERMER</button>
-        </div>
-    </div>
-
-    <!-- Écran vidéo débloquée -->
-    <div id="video-screen" class="screen">
-        <div class="content-wrapper">
-            <div class="container">
-                <div class="logo-container">
-                    <a href="#" class="logo-link" onclick="event.preventDefault(); showHomeScreen();">
-                        <img src="images/logo-ta.png" alt="Tradz Army Logo" class="logo">
-                    </a>
-                </div>
-                <p class="reveal-text">NOUS RÉVÉLONS ENFIN</p>
-                <h1 class="main-title">LA MÉTHODE EXACTE QUE NOUS AVONS UTILISÉE POUR PASSER DE SALARIÉ BROKE <span class="title-accent">À 5 CHIFFRES/MOIS GRÂCE AU TRADING</span></h1>
-                <p class="subtitle">(Et comment tu peux faire pareil)</p>
-                <div class="divider"></div>
-                <p class="warning-text"><strong style="color: #ffffff;">Félicitation</strong> pour avoir réussi le test, tu peux maintenant accéder et regarder la vidéo ;)</p>
-                
-                <div class="video-preview">
-                    <div class="video-container">
-                        <div class="video-container-unlocked">
-                            <iframe 
-                                id="unlocked-video" 
-                                src="https://www.youtube.com/embed/vxUEtYmB6og?enablejsapi=1&modestbranding=1&rel=0&origin=https://mathieub.com&iv_load_policy=3&cc_load_policy=0"
-                                frameborder="0"
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                allowfullscreen>
-                            </iframe>
-                        </div>
-                    </div>
-                    <p class="warning-text" style="margin-top: 24px; margin-bottom: 16px;">Accède <strong>GRATUITEMENT</strong> au groupe en envoyant « <strong>GO</strong> » après avoir cliqué juste en dessous.</p>
-                    <div class="cta-section">
-                        <a href="https://t.me/mathieubsupport" id="telegram-link" class="btn-primary" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation(); return true;">COMMENCER MAINTENANT</a>
-                    </div>
-                    <p class="video-description">*La vidéo à laquelle tu as accès gratuitement est normalement vendue +1000€.</p>
-                </div>
-
-                <div class="cta-section">
-                    <div class="social-proof">
-                        <div class="avatars">
-                            <div class="avatar"><img src="https://randomuser.me/api/portraits/men/21.jpg" alt="Personne 1 (18-25)"></div>
-                            <div class="avatar"><img src="https://randomuser.me/api/portraits/men/23.jpg" alt="Personne 2 (18-25)"></div>
-                            <div class="avatar"><img src="https://randomuser.me/api/portraits/men/25.jpg" alt="Personne 3 (18-25)"></div>
-                        </div>
-                        <span>Rejoins Les Personnes Déjà Inscrites</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal Conditions Générales -->
-    <div id="terms-modal" class="modal">
-        <div class="modal-overlay" onclick="closeModal('terms-modal')"></div>
-        <div class="modal-content">
-            <button class="modal-close" onclick="closeModal('terms-modal')">×</button>
-            <h2 class="modal-title">Conditions générales d'utilisation</h2>
-            <div class="modal-body">
-                <div class="modal-article">
-                    <h3>Article 1 – Objet</h3>
-                    <p>Les présentes Conditions Générales d'Utilisation ont pour objet de définir les modalités d'accès et d'utilisation du site.</p>
-                </div>
-                <div class="modal-article">
-                    <h3>Article 2 – Acceptation</h3>
-                    <p>Toute navigation sur ce site implique l'acceptation pleine et entière des présentes CGU.</p>
-                </div>
-                <div class="modal-article">
-                    <h3>Article 3 – Propriété intellectuelle</h3>
-                    <p>Le contenu du site est protégé par le droit d'auteur. Toute reproduction ou représentation totale ou partielle est interdite sans autorisation écrite préalable de Genesis Digital, LLC.</p>
-                </div>
-            </div>
-            <button class="modal-button" onclick="closeModal('terms-modal')">FERMER</button>
-        </div>
-    </div>
-
-    <!-- Modal Politique de Confidentialité -->
-    <div id="privacy-modal" class="modal">
-        <div class="modal-overlay" onclick="closeModal('privacy-modal')"></div>
-        <div class="modal-content">
-            <button class="modal-close" onclick="closeModal('privacy-modal')">×</button>
-            <h2 class="modal-title">Politique de confidentialité</h2>
-            <div class="modal-body">
-                <div class="modal-article">
-                    <h3>Article 1 – Protection des données personnelles</h3>
-                    <p>Genesis Digital, LLC s'engage à protéger la vie privée et les données personnelles des utilisateurs conformément aux lois applicables, y compris le Règlement Général sur la Protection des Données (RGPD) de l'Union européenne.</p>
-                </div>
-                <div class="modal-article">
-                    <h3>Article 2 – Droits des utilisateurs</h3>
-                    <p>Vous disposez d'un droit d'accès, de rectification, d'opposition et de suppression de vos données personnelles. Pour exercer ces droits, contactez-nous à l'adresse suivante :</p>
-                    <div class="contact-info">
-                        <p>Genesis Digital, LLC</p>
-                        <p>4730 S. Fort Apache Rd. Suite 300</p>
-                        <p>Las Vegas, NV 89147-7947</p>
-                        <p>Email :</p>
-                    </div>
+                    <p>Vous disposez d'un droit d'accès, de rectification, d'opposition et de suppression de vos données personnelles.</p>
                 </div>
             </div>
             <button class="modal-button" onclick="closeModal('privacy-modal')">FERMER</button>
@@ -299,16 +474,12 @@
 
     <!-- Footer -->
     <footer class="footer">
-        <p>2025 Copyright ©Tradz Army</p>
+        <p>2025 Copyright © Tradz Army</p>
         <p>Tous droits réservés - Mentions légales - Confidentialité - CGU</p>
     </footer>
 
-    <!-- Supabase Client -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <!-- Configuration Supabase -->
     <script>
-        // Configuration Supabase
-        // Les valeurs sont directement dans le code pour fonctionner sur Netlify et en local
         const SUPABASE_CONFIG = {
             url: 'https://husvknpjlwicjoaxrudl.supabase.co',
             anonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh1c3ZrbnBqbHdpY2pvYXhydWRsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njc3Mzg0NTAsImV4cCI6MjA4MzMxNDQ1MH0.9jG3M-sJ7lQV-YOUylspNmdFHLtHCzkB5dJr1P_BX4U'
@@ -317,4 +488,3 @@
     <script src="script.js"></script>
 </body>
 </html>
-

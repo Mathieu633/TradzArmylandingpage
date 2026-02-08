@@ -128,3 +128,4 @@ Si quelque chose ne fonctionne pas :
 - Logs Netlify (Deploys > ton déploiement)
 - Logs Supabase (Logs & metrics)
 
+

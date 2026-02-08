@@ -26,3 +26,4 @@ Si l'erreur persiste, on peut :
 - Utiliser un autre service d'hébergement vidéo (Vimeo, Cloudinary)
 - Utiliser le fichier MP4 directement (mais il faudra l'héberger ailleurs)
 
+

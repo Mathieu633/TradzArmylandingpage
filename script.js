@@ -1,213 +1,497 @@
-// Données du quiz (exemple minimal)
-const quizQuestions = [
-  {
-    question: "Que connais-tu du trading ?",
-    answers: [
-      "Je n'en ai jamais entendu parler",
-      "J'ai quelques notions mais aucune expérience",
-      "Je pratique déjà mais je ne suis pas rentable",
-      "Je génère déjà des milliers d'euros par mois"
-    ]
-  },
-  {
-    question: "Quelle est ta tranche d'âge ?",
-    answers: [
-      "Moins de 18 ans",
-      "De 18 à 25 ans",
-      "De 26 à 35 ans",
-      "De 36 à 50 ans",
-      "Plus de 50 ans"
-    ]
-  },
-  {
-    question: "Quel est ton objectif avec ce business, et combien aimerais-tu gagner grâce à celui-ci ?",
-    answers: [
-      "Monter un side business (500€ à 1500€/mois)",
-      "Remplacer mon salaire (1500€ à 5000€/mois)",
-      "Devenir libre financièrement (+10000€/mois)",
-      "Construire un empire (+50000€/mois)"
-    ]
-  },
-  {
-    question: "Qu'est-ce qui se passe dans ta vie en ce moment pour que tu envisages de potentiellement changer de voie ?",
-    answers: [
-      "Je ne suis pas satisfait(e) de ma situation financière actuelle",
-      "Je cherche plus de flexibilité et de liberté dans mon travail",
-      "Je veux un métier avec un meilleur potentiel de revenus",
-      "Je veux travailler depuis chez moi (ou n'importe où)"
-    ]
-  },
-  {
-    question: "Quel est ton statut actuel ?",
-    answers: [
-      "Sans emploi",
-      "Salarié",
-      "Étudiant",
-      "Retraité",
-      "Entrepreneur",
-      "Fonctionnaire"
-    ]
-  },
-  {
-    question: "Combien pourrais-tu investir dès maintenant pour atteindre ces objectifs si tu étais 100 % certain(e) d'y arriver ?",
-    answers: [
-      "Rien du tout...",
-      "Entre 300€ et 500€",
-      "Entre 500€ et 1000€",
-      "Plus de 1000€"
-    ]
-  }
-];
-
-let currentQuestionIndex = 0;
-let answers = [];
-
-const screens = {
-  home: document.getElementById("home-screen"),
-  quiz: document.getElementById("quiz-screen"),
-  congrats: document.getElementById("congrats-screen"),
-  video: document.getElementById("video-screen"),
-};
-
-const questionText = document.getElementById("question-text");
-const answersContainer = document.getElementById("answers-container");
-const progressFill = document.getElementById("progress-fill");
-const btnPrevious = document.getElementById("btn-previous");
-
-function showScreen(name) {
-  Object.values(screens).forEach(el => el.classList.remove("active"));
-  screens[name].classList.add("active");
+// ========== MODAL DÉBLOCAGE VIDÉO ==========
+function openUnlockModal() {
+  document.getElementById("unlock-modal").classList.add("active");
 }
 
-function showHomeScreen() {
-  showScreen("home");
-  currentQuestionIndex = 0;
-  answers = [];
-  progressFill.style.width = "0%";
+function closeUnlockModal() {
+  document.getElementById("unlock-modal").classList.remove("active");
 }
 
-function startQuiz() {
-  answers = [];
-  currentQuestionIndex = 0;
-  showScreen("quiz");
-  displayQuestion();
-}
-
-function displayQuestion() {
-  const q = quizQuestions[currentQuestionIndex];
-  questionText.textContent = q.question;
-  answersContainer.innerHTML = "";
-
-  q.answers.forEach((ans, idx) => {
-    const btn = document.createElement("button");
-    btn.className = "answer-btn";
-    btn.textContent = ans;
-    btn.onclick = () => selectAnswer(idx);
-    answersContainer.appendChild(btn);
-  });
-
-  progressFill.style.width = `${(currentQuestionIndex / quizQuestions.length) * 100}%`;
-  btnPrevious.style.display = currentQuestionIndex > 0 ? "block" : "none";
-}
-
-function selectAnswer(idx) {
-  answers[currentQuestionIndex] = idx;
-  if (currentQuestionIndex < quizQuestions.length - 1) {
-    currentQuestionIndex++;
-    displayQuestion();
-  } else {
-    progressFill.style.width = "100%";
-    showScreen("congrats");
-  }
-}
-
-function previousQuestion() {
-  if (currentQuestionIndex > 0) {
-    currentQuestionIndex--;
-    displayQuestion();
-  }
-}
-
-async function unlockVideo(event) {
-  event.preventDefault();
-  
-  // Récupérer les données du formulaire
-  const formData = {
-    firstname: document.getElementById("firstname").value,
-    email: document.getElementById("email").value,
-    phone: document.getElementById("phone").value,
-    instagram: document.getElementById("instagram").value,
-    answer_1: answers[0],
-    answer_2: answers[1],
-    answer_3: answers[2],
-    answer_4: answers[3],
-    answer_5: answers[4],
-    answer_6: answers[5],
-    answer_1_text: quizQuestions[0].answers[answers[0]] || null,
-    answer_2_text: quizQuestions[1].answers[answers[1]] || null,
-    answer_3_text: quizQuestions[2].answers[answers[2]] || null,
-    answer_4_text: quizQuestions[3].answers[answers[3]] || null,
-    answer_5_text: quizQuestions[4].answers[answers[4]] || null,
-    answer_6_text: quizQuestions[5].answers[answers[5]] || null
-  };
-
-  // Envoyer les données à Supabase si configuré
-  if (typeof SUPABASE_CONFIG !== 'undefined' && SUPABASE_CONFIG.url && SUPABASE_CONFIG.anonKey) {
-    try {
-      // Initialiser le client Supabase
-      const { createClient } = supabase;
-      const supabaseClient = createClient(SUPABASE_CONFIG.url, SUPABASE_CONFIG.anonKey);
-      
-      // Insérer les données dans la base de données
-      const { data, error } = await supabaseClient
-        .from('quiz_responses')
-        .insert([formData])
-        .select();
-
-      if (error) {
-        console.error('Erreur lors de l\'enregistrement:', error);
-        // Continuer quand même pour ne pas bloquer l'utilisateur
-      } else {
-        console.log('Données enregistrées avec succès:', data);
-      }
-    } catch (error) {
-      console.error('Erreur de connexion à Supabase:', error);
-      // Continuer quand même pour ne pas bloquer l'utilisateur
-    }
-  } else {
-    console.warn('Supabase non configuré. Les données ne seront pas enregistrées.');
-  }
-
-  // Afficher la vidéo (déjà chargée via iframe YouTube)
-  showScreen("video");
-}
-
-function openModal(id) {
+function openLegalModal(id) {
   const m = document.getElementById(id);
   if (m) m.classList.add("active");
 }
+
 function closeModal(id) {
   const m = document.getElementById(id);
   if (m) m.classList.remove("active");
 }
 
-document.addEventListener("keydown", (e) => {
-  if (e.key === "Escape") {
-    document.querySelectorAll(".modal.active").forEach(m => m.classList.remove("active"));
+async function unlockVideo(event) {
+  event.preventDefault();
+
+  const firstname = document.getElementById("firstname").value.trim();
+  const email = document.getElementById("email").value.trim();
+
+  if (!firstname || !email) return;
+
+  const formData = {
+    firstname,
+    email,
+  };
+
+  // Envoyer à Supabase si configuré
+  if (typeof SUPABASE_CONFIG !== "undefined" && SUPABASE_CONFIG.url && SUPABASE_CONFIG.anonKey) {
+    try {
+      const { createClient } = supabase;
+      const supabaseClient = createClient(SUPABASE_CONFIG.url, SUPABASE_CONFIG.anonKey);
+
+      const { data, error } = await supabaseClient
+        .from("quiz_responses")
+        .insert([formData])
+        .select();
+
+      if (error) {
+        console.error("Erreur lors de l'enregistrement:", error);
+      } else {
+        console.log("Données enregistrées:", data);
+      }
+    } catch (err) {
+      console.error("Erreur Supabase:", err);
+    }
   }
-});
 
-// Initial
-showScreen("home");
+  // Débloquer la vidéo
+  const container = document.getElementById("video-container");
+  const overlay = document.getElementById("lock-overlay");
+  const video = document.getElementById("main-video");
+  const videoCta = document.getElementById("video-cta-unlocked");
+  const unlockCta = document.getElementById("video-unlock-cta");
+  const videoControls = document.getElementById("video-controls");
 
-// Gestion du lien Telegram
-document.addEventListener('DOMContentLoaded', function() {
-  const telegramLink = document.getElementById('telegram-link');
-  if (telegramLink) {
-    telegramLink.addEventListener('click', function(e) {
-      e.stopPropagation();
-      window.open('https://t.me/mathieubsupport', '_blank', 'noopener,noreferrer');
+  container.classList.remove("video-locked");
+  overlay.dataset.unlocked = "true";
+  if (unlockCta) unlockCta.style.display = "none";
+  if (videoControls) videoControls.style.display = "flex";
+
+  if (videoCta) videoCta.style.display = "block";
+
+  closeUnlockModal();
+}
+
+// Clic sur l'overlay : verrouillé = ouvrir modal, débloqué = jouer la vidéo
+function handleVideoOverlayClick() {
+  const overlay = document.getElementById("lock-overlay");
+  const video = document.getElementById("main-video");
+
+  if (overlay.dataset.unlocked === "true") {
+    video.play();
+    overlay.style.display = "none";
+  } else {
+    openUnlockModal();
+  }
+}
+
+function toggleMute() {
+  const video = document.getElementById("main-video");
+  const btn = document.getElementById("btn-mute");
+  const useEl = btn?.querySelector("use");
+  video.muted = !video.muted;
+  if (useEl) useEl.setAttribute("href", video.muted ? "#icon-volume-mute" : "#icon-volume");
+}
+
+function toggleFullscreen() {
+  const container = document.getElementById("video-container");
+  if (!document.fullscreenElement) {
+    container.requestFullscreen?.();
+  } else {
+    document.exitFullscreen?.();
+  }
+}
+
+// Réafficher le bouton play quand la vidéo est en pause + clic pour pause/play
+document.addEventListener("DOMContentLoaded", function () {
+  const video = document.getElementById("main-video");
+  const overlay = document.getElementById("lock-overlay");
+  const controls = document.getElementById("video-controls");
+  if (video && overlay) {
+    video.addEventListener("pause", function () {
+      if (overlay.dataset.unlocked === "true") {
+        overlay.style.display = "flex";
+      }
+    });
+    // Clic sur la vidéo en lecture : met en pause (quand débloqué)
+    video.addEventListener("click", function (e) {
+      if (overlay.dataset.unlocked !== "true") return;
+      if (controls?.contains(e.target)) return;
+      if (!video.paused) video.pause();
     });
   }
 });
 
+// Fermer modal avec Escape
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") {
+    document.querySelectorAll(".modal.active").forEach((m) => m.classList.remove("active"));
+  }
+});
+
+// ========== FORMULAIRE TÉLÉPHONE ==========
+function updatePhonePlaceholder() {
+  const select = document.getElementById("country-code");
+  const input = document.getElementById("phone-input");
+  const opt = select.options[select.selectedIndex];
+  const placeholder = opt ? opt.dataset.placeholder : "06 12 34 56 78";
+  input.placeholder = placeholder;
+}
+
+async function submitPhoneForm(event) {
+  event.preventDefault();
+  const input = document.getElementById("phone-input");
+  const error = document.getElementById("phone-error");
+  const countrySelect = document.getElementById("country-code");
+  const countryCode = countrySelect.value;
+  const phone = input.value.trim();
+
+  if (!phone) {
+    error.style.display = "flex";
+    return;
+  }
+
+  error.style.display = "none";
+
+  const fullPhone = countryCode + " " + phone.replace(/\s/g, "");
+
+  if (typeof SUPABASE_CONFIG !== "undefined" && SUPABASE_CONFIG.url && SUPABASE_CONFIG.anonKey) {
+    try {
+      const { createClient } = supabase;
+      const supabaseClient = createClient(SUPABASE_CONFIG.url, SUPABASE_CONFIG.anonKey);
+      await supabaseClient.from("quiz_responses").insert([{ phone: fullPhone }]).select();
+    } catch (err) {
+      console.error("Erreur enregistrement téléphone:", err);
+    }
+  }
+
+  input.value = "";
+  input.placeholder = "Merci ! Ton numéro a été enregistré.";
+}
+
+// ========== FAQ ACCORDÉON ==========
+function toggleFaq(el) {
+  const item = el.closest(".faq-item");
+  const wasOpen = item.classList.contains("open");
+  document.querySelectorAll(".faq-item").forEach((i) => {
+    i.classList.remove("open");
+    const chev = i.querySelector(".faq-chevron");
+    if (chev) chev.textContent = "+";
+  });
+  if (!wasOpen) {
+    item.classList.add("open");
+    const chev = item.querySelector(".faq-chevron");
+    if (chev) chev.textContent = "−";
+  }
+}
+
+// ========== CARROUSEL FEATURES ==========
+let currentSlide = 0;
+const totalSlides = 3;
+
+function prevSlide() {
+  currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+  updateCarousel();
+}
+
+function nextSlide() {
+  currentSlide = (currentSlide + 1) % totalSlides;
+  updateCarousel();
+}
+
+function goToSlide(index) {
+  currentSlide = index;
+  updateCarousel();
+}
+
+function updateCarousel() {
+  const cards = document.querySelectorAll(".feature-card");
+  const dots = document.querySelectorAll(".carousel-dots .dot");
+  cards.forEach((c, i) => c.classList.toggle("active", i === currentSlide));
+  dots.forEach((d, i) => d.classList.toggle("active", i === currentSlide));
+}
+
+// ========== CARROUSEL RÉSULTATS / CERTIFICATS (défilement infini) ==========
+(function initResultatsCarousel() {
+  const track = document.querySelector(".resultats-carousel-track");
+  const dotsContainer = document.querySelector(".resultats-carousel-dots");
+  const prevBtn = document.querySelector(".resultats-carousel .carousel-prev");
+  const nextBtn = document.querySelector(".resultats-carousel .carousel-next");
+
+  if (!track || !dotsContainer) return;
+
+  const slides = track.querySelectorAll(".resultat-slide");
+  const originalCount = slides.length;
+
+  if (slides.length < originalCount) return;
+
+  for (let i = originalCount - 1; i >= originalCount - 3 && i >= 0; i--) {
+    track.insertBefore(slides[i].cloneNode(true), track.firstChild);
+  }
+  for (let i = 0; i < 3; i++) {
+    track.appendChild(slides[i].cloneNode(true));
+  }
+
+  const totalSlides = track.querySelectorAll(".resultat-slide").length;
+  const startOffset = 3;
+  let trackIndex = startOffset;
+  let logicalIndex = 0;
+  let autoInterval;
+
+  function getSlideOffset() {
+    const slide = track.querySelector(".resultat-slide");
+    if (!slide) return 150;
+    const gap = 16;
+    const rect = slide.getBoundingClientRect();
+    return rect.width + gap;
+  }
+
+  function getVisibleCount() {
+    const offset = getSlideOffset();
+    if (offset <= 0) return 1;
+    const wrap = track.parentElement;
+    const wrapWidth = wrap ? wrap.offsetWidth : 9999;
+    return Math.min(originalCount, Math.max(1, Math.floor((wrapWidth + 16) / offset)));
+  }
+
+  function getLogicalMax() {
+    return Math.max(0, originalCount - getVisibleCount());
+  }
+
+  function applyTransform(noTransition) {
+    const offset = getSlideOffset();
+    if (noTransition) track.style.transition = "none";
+    track.style.transform = `translateX(-${trackIndex * offset}px)`;
+    if (noTransition) {
+      track.offsetHeight;
+      track.style.transition = "";
+    }
+    dotsContainer.querySelectorAll(".dot").forEach((d, i) => d.classList.toggle("active", i === logicalIndex));
+  }
+
+  function goToLogical(index) {
+    logicalIndex = Math.max(0, Math.min(index, getLogicalMax()));
+    trackIndex = startOffset + logicalIndex;
+    applyTransform(false);
+  }
+
+  function prevSimple() {
+    const max = getLogicalMax();
+    trackIndex--;
+    if (trackIndex < startOffset) {
+      trackIndex = startOffset + max;
+      logicalIndex = max;
+      applyTransform(true);
+    } else {
+      logicalIndex = trackIndex - startOffset;
+      applyTransform(false);
+    }
+  }
+
+  function nextSimple() {
+    const max = getLogicalMax();
+    trackIndex++;
+    if (trackIndex >= startOffset + originalCount) {
+      trackIndex = startOffset;
+      logicalIndex = 0;
+      applyTransform(true);
+    } else {
+      logicalIndex = Math.min(trackIndex - startOffset, max);
+      applyTransform(false);
+    }
+  }
+
+  function renderDots() {
+    dotsContainer.innerHTML = "";
+    const max = getLogicalMax();
+    for (let i = 0; i <= max; i++) {
+      const dot = document.createElement("button");
+      dot.type = "button";
+      dot.className = "dot" + (i === logicalIndex ? " active" : "");
+      dot.setAttribute("aria-label", "Position " + (i + 1));
+      dot.addEventListener("click", () => goToLogical(i));
+      dotsContainer.appendChild(dot);
+    }
+  }
+
+  function startAuto() {
+    autoInterval = setInterval(nextSimple, 4000);
+  }
+  function stopAuto() {
+    clearInterval(autoInterval);
+  }
+
+  prevBtn?.addEventListener("click", () => { stopAuto(); prevSimple(); startAuto(); });
+  nextBtn?.addEventListener("click", () => { stopAuto(); nextSimple(); startAuto(); });
+
+  window.addEventListener("resize", () => {
+    logicalIndex = Math.min(logicalIndex, getLogicalMax());
+    trackIndex = startOffset + logicalIndex;
+    renderDots();
+    applyTransform(false);
+  });
+
+  renderDots();
+  logicalIndex = 0;
+  trackIndex = startOffset;
+  applyTransform(false);
+  startAuto();
+})();
+
+// ========== CARROUSEL BESOIN (3 bulles) ==========
+(function initBesoinCarousel() {
+  const track = document.querySelector(".besoin-carousel-track");
+  const dotsContainer = document.querySelector(".besoin-carousel-dots");
+  const prevBtn = document.querySelector(".besoin-carousel-prev");
+  const nextBtn = document.querySelector(".besoin-carousel-next");
+
+  if (!track || !dotsContainer) return;
+
+  const slides = track.querySelectorAll(".besoin-slide");
+  const total = slides.length;
+  let currentIndex = 0;
+
+  function getSlideOffset() {
+    const slide = track.querySelector(".besoin-slide");
+    if (!slide) return 300;
+    const gap = 24;
+    const rect = slide.getBoundingClientRect();
+    return rect.width + gap;
+  }
+
+  function getVisibleCount() {
+    const offset = getSlideOffset();
+    if (offset <= 0) return 1;
+    const wrap = track.parentElement;
+    const wrapWidth = wrap ? wrap.offsetWidth : 9999;
+    return Math.min(total, Math.min(3, Math.max(1, Math.floor((wrapWidth + 24) / offset))));
+  }
+
+  function getMaxIndex() {
+    return Math.max(0, total - getVisibleCount());
+  }
+
+  function goTo(index) {
+    const max = getMaxIndex();
+    currentIndex = Math.max(0, Math.min(index, max));
+    const offset = getSlideOffset();
+    track.style.transform = `translateX(-${currentIndex * offset}px)`;
+    dotsContainer.querySelectorAll(".dot").forEach((d, i) => d.classList.toggle("active", i === currentIndex));
+  }
+
+  function prev() {
+    const max = getMaxIndex();
+    goTo(currentIndex === 0 ? max : currentIndex - 1);
+  }
+
+  function next() {
+    const max = getMaxIndex();
+    goTo(currentIndex >= max ? 0 : currentIndex + 1);
+  }
+
+  function renderDots() {
+    dotsContainer.innerHTML = "";
+    const max = getMaxIndex();
+    for (let i = 0; i <= max; i++) {
+      const dot = document.createElement("button");
+      dot.type = "button";
+      dot.className = "dot" + (i === currentIndex ? " active" : "");
+      dot.setAttribute("aria-label", "Position " + (i + 1));
+      dot.addEventListener("click", () => goTo(i));
+      dotsContainer.appendChild(dot);
+    }
+  }
+
+  let autoInterval;
+  function startAuto() {
+    autoInterval = setInterval(next, 5000);
+  }
+  function stopAuto() {
+    clearInterval(autoInterval);
+  }
+
+  prevBtn?.addEventListener("click", () => { stopAuto(); prev(); startAuto(); });
+  nextBtn?.addEventListener("click", () => { stopAuto(); next(); startAuto(); });
+
+  window.addEventListener("resize", () => {
+    renderDots();
+    goTo(Math.min(currentIndex, getMaxIndex()));
+  });
+
+  renderDots();
+  goTo(0);
+  startAuto();
+})();
+
+// ========== CARROUSEL MODULES ==========
+(function initModulesCarousel() {
+  const track = document.querySelector(".modules-carousel-track");
+  const dotsContainer = document.querySelector(".modules-carousel-dots");
+  const prevBtn = document.querySelector(".modules-carousel-prev");
+  const nextBtn = document.querySelector(".modules-carousel-next");
+
+  if (!track || !dotsContainer) return;
+
+  const slides = track.querySelectorAll(".module-slide");
+  const total = slides.length;
+  let currentIndex = 0;
+  const gap = 20;
+
+  function getSlideOffset() {
+    const slide = track.querySelector(".module-slide");
+    if (!slide) return 200;
+    const rect = slide.getBoundingClientRect();
+    return rect.width + gap;
+  }
+
+  function getVisibleCount() {
+    const offset = getSlideOffset();
+    if (offset <= 0) return 1;
+    const wrap = track.parentElement;
+    const wrapWidth = wrap ? wrap.offsetWidth : 9999;
+    return Math.min(total, Math.min(3, Math.max(1, Math.floor((wrapWidth + gap) / offset))));
+  }
+
+  function getMaxIndex() {
+    return Math.max(0, total - getVisibleCount());
+  }
+
+  function goTo(index) {
+    const max = getMaxIndex();
+    currentIndex = Math.max(0, Math.min(index, max));
+    const offset = getSlideOffset();
+    track.style.transform = `translateX(-${currentIndex * offset}px)`;
+    dotsContainer.querySelectorAll(".dot").forEach((d, i) => d.classList.toggle("active", i === currentIndex));
+  }
+
+  function prev() {
+    const max = getMaxIndex();
+    goTo(currentIndex === 0 ? max : currentIndex - 1);
+  }
+
+  function next() {
+    const max = getMaxIndex();
+    goTo(currentIndex >= max ? 0 : currentIndex + 1);
+  }
+
+  function renderDots() {
+    dotsContainer.innerHTML = "";
+    const max = getMaxIndex();
+    for (let i = 0; i <= max; i++) {
+      const dot = document.createElement("button");
+      dot.type = "button";
+      dot.className = "dot" + (i === currentIndex ? " active" : "");
+      dot.setAttribute("aria-label", "Position " + (i + 1));
+      dot.addEventListener("click", () => goTo(i));
+      dotsContainer.appendChild(dot);
+    }
+  }
+
+  prevBtn?.addEventListener("click", prev);
+  nextBtn?.addEventListener("click", next);
+
+  window.addEventListener("resize", () => {
+    renderDots();
+    goTo(Math.min(currentIndex, getMaxIndex()));
+  });
+
+  renderDots();
+  goTo(0);
+})();
