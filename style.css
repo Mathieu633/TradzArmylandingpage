@@ -219,17 +219,6 @@ body:not(.landing-unlocked) .revenue-disclaimer {
     box-shadow: 0 20px 60px rgba(0,0,0,0.5);
     border: 1px solid rgba(255, 255, 255, 0.08);
 }
-.video-container .video-poster {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-color: #0a0a0a;
-}
 .video-container .custom-video,
 .video-container .video-embed {
     position: absolute;
@@ -283,7 +272,7 @@ body:not(.landing-unlocked) .revenue-disclaimer {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(0, 0, 0, 0.3);
+    background: rgba(0, 0, 0, 0.2);
     z-index: 10;
     cursor: pointer;
 }

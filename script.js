@@ -3,7 +3,6 @@ import { createClient } from "@supabase/supabase-js";
 // Config vidéo : Bunny.net (prioritaire) OU YouTube
 const YOUTUBE_VIDEO_ID = "vxUEtYmB6og"; // ID YouTube (fallback)
 const BUNNY_EMBED_URL = "https://iframe.mediadelivery.net/embed/595631/7fefa285-c04d-422b-aa57-6b7028ac5835"; // Bunny.net
-const VIDEO_THUMBNAIL_URL = import.meta.env.VITE_VIDEO_THUMBNAIL_URL || "https://vz-595631.mediadelivery.net/7fefa285-c04d-422b-aa57-6b7028ac5835/thumbnail.jpg"; // Miniature - si noir, ajoute VITE_VIDEO_THUMBNAIL_URL depuis ton dashboard Bunny
 
 function getSupabase() {
   const url = import.meta.env.VITE_SUPABASE_URL;
@@ -43,9 +42,16 @@ function restoreUnlockState() {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-  const poster = document.getElementById("video-poster");
-  if (poster && VIDEO_THUMBNAIL_URL) {
-    poster.style.backgroundImage = `url(${VIDEO_THUMBNAIL_URL})`;
+  if (BUNNY_EMBED_URL) {
+    const embed = document.getElementById("video-embed");
+    if (embed && !embed.innerHTML) {
+      const iframe = document.createElement("iframe");
+      iframe.src = `${BUNNY_EMBED_URL}?preload=true`;
+      iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
+      iframe.allowFullscreen = true;
+      iframe.title = "Vidéo Tradz Army";
+      embed.appendChild(iframe);
+    }
   }
   if (import.meta.env.DEV) {
     const ok = !!getSupabase();
@@ -170,23 +176,26 @@ function initScrollAnimations() {
   elements.forEach((el) => observer.observe(el));
 }
 
-// Clic sur l'overlay : verrouillé = ouvrir modal, débloqué = charger et jouer la vidéo (Bunny.net ou YouTube)
+// Clic sur l'overlay : verrouillé = ouvrir modal, débloqué = lancer la vidéo
 function handleVideoOverlayClick() {
   const overlay = document.getElementById("lock-overlay");
   const embed = document.getElementById("video-embed");
+  const iframe = embed?.querySelector("iframe");
 
   if (overlay.dataset.unlocked === "true") {
-    if (!embed.innerHTML) {
-      const poster = document.getElementById("video-poster");
-      if (poster) poster.style.display = "none";
-      const iframe = document.createElement("iframe");
-      iframe.src = BUNNY_EMBED_URL
+    if (iframe) {
+      if (BUNNY_EMBED_URL && !iframe.src.includes("autoplay=true")) {
+        iframe.src = `${BUNNY_EMBED_URL}?autoplay=true&preload=true`;
+      }
+    } else {
+      const newIframe = document.createElement("iframe");
+      newIframe.src = BUNNY_EMBED_URL
         ? `${BUNNY_EMBED_URL}?autoplay=true&preload=true`
         : `https://www.youtube.com/embed/${YOUTUBE_VIDEO_ID}?autoplay=1&rel=0`;
-      iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
-      iframe.allowFullscreen = true;
-      iframe.title = "Vidéo Tradz Army";
-      embed.appendChild(iframe);
+      newIframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
+      newIframe.allowFullscreen = true;
+      newIframe.title = "Vidéo Tradz Army";
+      embed.appendChild(newIframe);
     }
     overlay.style.display = "none";
   } else {
