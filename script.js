@@ -1,8 +1,8 @@
 import { createClient } from "@supabase/supabase-js";
 
-// Config vidéo : Internet Archive embed (prioritaire) OU YouTube
+// Config vidéo : YouTube (prioritaire) OU Internet Archive
 const YOUTUBE_VIDEO_ID = "vxUEtYmB6og"; // ID YouTube
-const ARCHIVE_ORG_ID = "video-lp"; // ID Internet Archive (ex: archive.org/details/video-lp)
+const ARCHIVE_ORG_ID = ""; // ID Internet Archive (ex: video-lp) - si vide, utilise YouTube
 
 function getSupabase() {
   const url = import.meta.env.VITE_SUPABASE_URL;
