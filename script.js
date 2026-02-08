@@ -34,11 +34,9 @@ function restoreUnlockState() {
     const overlay = document.getElementById("lock-overlay");
     const videoCta = document.getElementById("video-cta-unlocked");
     const unlockCta = document.getElementById("video-unlock-cta");
-    const videoControls = document.getElementById("video-controls");
     if (container) container.classList.remove("video-locked");
     if (overlay) overlay.dataset.unlocked = "true";
     if (unlockCta) unlockCta.style.display = "none";
-    if (videoControls) videoControls.style.display = "flex";
     if (videoCta) videoCta.style.display = "block";
   }
 }
@@ -128,12 +126,10 @@ async function unlockVideo(event) {
   const overlay = document.getElementById("lock-overlay");
   const videoCta = document.getElementById("video-cta-unlocked");
   const unlockCta = document.getElementById("video-unlock-cta");
-  const videoControls = document.getElementById("video-controls");
 
   container.classList.remove("video-locked");
   overlay.dataset.unlocked = "true";
   if (unlockCta) unlockCta.style.display = "none";
-  if (videoControls) videoControls.style.display = "flex";
   if (videoCta) videoCta.style.display = "block";
 
   closeUnlockModal();
