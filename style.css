@@ -72,9 +72,10 @@ body {
     min-height: 100vh;
     padding-bottom: 0;
 }
-/* Masquer le contenu débloqué et le footer tant que la vidéo n'est pas débloquée */
+/* Masquer le contenu débloqué, le footer et l'avertissement revenus tant que la vidéo n'est pas débloquée */
 body:not(.landing-unlocked) #landing-unlocked-content,
-body:not(.landing-unlocked) #main-footer {
+body:not(.landing-unlocked) #main-footer,
+body:not(.landing-unlocked) .revenue-disclaimer {
     display: none !important;
 }
 
@@ -1857,12 +1858,12 @@ body:not(.landing-unlocked) #main-footer {
     border-color: rgba(212,175,55,0.5);
 }
 .section-ofm .btn-secondary {
-    background: #222222;
+    background: rgba(255,255,255,0.04);
     border: 1px solid #666666;
     border-radius: 12px;
 }
 .section-ofm .btn-secondary:hover {
-    background: #333333;
+    background: rgba(255,255,255,0.08);
     border-color: #888888;
 }
 
@@ -2559,6 +2560,24 @@ body:not(.landing-unlocked) #main-footer {
 }
 .footer p:last-child {
     margin-bottom: 0;
+}
+
+/* Animations au défilement (contenu débloqué) */
+.scroll-animate {
+    opacity: 0;
+    transform: translateY(36px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+.scroll-animate.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+/* Sections fullwidth : conserver translateX(-50%) pour le centrage */
+.section-fullwidth.scroll-animate {
+    transform: translateX(-50%) translateY(36px);
+}
+.section-fullwidth.scroll-animate.visible {
+    transform: translateX(-50%) translateY(0);
 }
 
 @keyframes gradient-flow {

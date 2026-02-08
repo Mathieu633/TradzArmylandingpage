@@ -8,6 +8,12 @@
     <link rel="shortcut icon" type="image/png" href="images/logo-ta.png">
     <link rel="apple-touch-icon" href="images/logo-ta.png">
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* Critique : masquer immédiatement le contenu débloqué (évite FOUC) */
+        body:not(.landing-unlocked) #landing-unlocked-content,
+        body:not(.landing-unlocked) #main-footer,
+        body:not(.landing-unlocked) .revenue-disclaimer { display: none !important; }
+    </style>
 </head>
 <body>
     <!-- Sprites SVG icônes -->
@@ -92,7 +98,7 @@
 
                 <!-- Section C'est quoi + Image voiture -->
                 <section class="section section-fullwidth section-ofm">
-                    <h2 class="section-title">Le Trading ne rend pas "riche" par chance.<br>Il récompense ceux qui exécutent.</h2>
+                    <h2 class="section-title">Le Trading ne rend pas "<span class="accent">RICHE</span>" par chance.<br>Il récompense ceux qui <span class="accent">exécutent</span>.</h2>
                     <p class="ofm-stats">~45M$ de payouts chez FTMO en 2025</p>
                     <p class="ofm-stats">Pendant que certains doutent, d'autres prennent leur part.</p>
                     <div class="ofm-content">
@@ -233,7 +239,7 @@
                         <button type="button" class="carousel-btn carousel-next besoin-carousel-next" aria-label="Suivant">&rsaquo;</button>
                         <div class="besoin-carousel-dots"></div>
                     </div>
-                    <a href="https://t.me/mathieubsupport" class="btn-primary btn-rejoindre" target="_blank" rel="noopener noreferrer">Rejoindre le groupe</a>
+                    <a href="https://t.me/mathieubsupport" class="btn-primary btn-rejoindre" target="_blank" rel="noopener noreferrer">Commencer maintenant</a>
                 </section>
 
                 <!-- 4. Les différents modules de la formation -->
@@ -337,7 +343,7 @@
 
                 <!-- Section Tous nos membres gagnent -->
                 <section class="section section-fullwidth section-membres">
-                    <h2 class="section-title">Tous Nos Membres <span class="accent">Gagnent.</span></h2>
+                    <h2 class="section-title">Encore Des <span class="accent">Résultats</span></h2>
                     <div class="membres-carousel">
                         <button type="button" class="carousel-btn carousel-prev membres-carousel-prev" aria-label="Précédent">&lsaquo;</button>
                         <div class="membres-carousel-track-wrap">

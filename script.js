@@ -17,7 +17,10 @@ function restoreUnlockState() {
   }
 }
 
-document.addEventListener("DOMContentLoaded", restoreUnlockState);
+document.addEventListener("DOMContentLoaded", function () {
+  restoreUnlockState();
+  if (document.body.classList.contains("landing-unlocked")) initScrollAnimations();
+});
 
 // ========== MODAL DÉBLOCAGE VIDÉO ==========
 function openUnlockModal() {
@@ -89,6 +92,37 @@ async function unlockVideo(event) {
   if (videoCta) videoCta.style.display = "block";
 
   closeUnlockModal();
+  initScrollAnimations();
+}
+
+// Animations au défilement (uniquement quand la vidéo est débloquée)
+function initScrollAnimations() {
+  const content = document.getElementById("landing-unlocked-content");
+  if (!content || !document.body.classList.contains("landing-unlocked")) return;
+
+  const sections = content.querySelectorAll(".section");
+  const ctaBlock = content.querySelector(".video-cta-unlocked");
+  const revenueDisclaimer = document.querySelector(".revenue-disclaimer");
+  const footer = document.getElementById("main-footer");
+  const elements = [
+    ...sections,
+    ...(ctaBlock ? [ctaBlock] : []),
+    ...(revenueDisclaimer ? [revenueDisclaimer] : []),
+    ...(footer ? [footer] : []),
+  ];
+
+  elements.forEach((el) => el.classList.add("scroll-animate"));
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) entry.target.classList.add("visible");
+      });
+    },
+    { threshold: 0.08, rootMargin: "0px 0px -40px 0px" }
+  );
+
+  elements.forEach((el) => observer.observe(el));
 }
 
 // Clic sur l'overlay : verrouillé = ouvrir modal, débloqué = jouer la vidéo
