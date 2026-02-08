@@ -83,12 +83,60 @@ supabase functions deploy send-welcome-email --no-verify-jwt
 
 ## Personnaliser l'email
 
-Modifie le fichier `supabase/functions/send-welcome-email/index.ts` pour changer :
-- Le contenu HTML de l'email
-- Le sujet
-- L'envoi au lead (email de bienvenue) ou à toi (notification)
+Le fichier à modifier : `supabase/functions/send-welcome-email/index.ts`
 
-Puis redéploie : `supabase functions deploy send-welcome-email --no-verify-jwt`
+### 1. Changer le contenu de l'email (HTML)
+
+Tu peux modifier les variables `emailHtml` et `subject` dans le fichier. Exemple :
+
+```ts
+// Email de bienvenue envoyé au lead (quand TO_EMAIL n'est pas défini)
+const emailHtml = `<h1>Salut ${prenom} !</h1>
+  <p>Merci d'avoir débloqué la vidéo.</p>
+  <p>On a hâte de t'accompagner dans ton parcours trading.</p>
+  <p>— L'équipe Tradz Army</p>`;
+
+// Sujet de l'email
+subject: `Bienvenue ${prenom} ! Ton accès est activé`
+```
+
+### 2. Modifier le sujet
+
+Ligne ~51 : change `subject` selon le contexte (notification vs bienvenue).
+
+### 3. Choisir qui reçoit l'email
+
+- **TO_EMAIL défini** (secret) → l'email va à toi (notification de nouveau lead)
+- **TO_EMAIL vide** → l'email va au lead (email de bienvenue personnalisé)
+
+### 4. Utiliser les données du lead
+
+Le webhook envoie : `firstname`, `email`, `phone`. Tu peux les utiliser dans le HTML :
+
+```ts
+const { firstname, email, phone } = payload.record || {};
+const prenom = firstname || "là";
+// Utilise prenom, email, phone dans ton HTML
+```
+
+### 5. Mettre en forme (couleurs, logo, etc.)
+
+Tu peux utiliser du HTML/CSS inline (Resend supporte le HTML) :
+
+```html
+<div style="font-family: Arial; max-width: 600px; margin: 0 auto;">
+  <h1 style="color: #333;">Salut ${prenom} !</h1>
+  <p>Ton message ici...</p>
+</div>
+```
+
+### 6. Appliquer les changements
+
+Après modification, redéploie :
+
+```bash
+supabase functions deploy send-welcome-email --no-verify-jwt
+```
 
 ---
 
