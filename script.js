@@ -1,8 +1,8 @@
 import { createClient } from "@supabase/supabase-js";
 
-// Config vidéo : YouTube (prioritaire) OU Internet Archive
-const YOUTUBE_VIDEO_ID = "vxUEtYmB6og"; // ID YouTube
-const ARCHIVE_ORG_ID = ""; // ID Internet Archive (ex: video-lp) - si vide, utilise YouTube
+// Config vidéo : Bunny.net (prioritaire) OU YouTube
+const YOUTUBE_VIDEO_ID = "vxUEtYmB6og"; // ID YouTube (fallback)
+const BUNNY_EMBED_URL = "https://iframe.mediadelivery.net/play/595631/7fefa285-c04d-422b-aa57-6b7028ac5835"; // Bunny.net - si vide, utilise YouTube
 
 function getSupabase() {
   const url = import.meta.env.VITE_SUPABASE_URL;
@@ -170,7 +170,7 @@ function initScrollAnimations() {
   elements.forEach((el) => observer.observe(el));
 }
 
-// Clic sur l'overlay : verrouillé = ouvrir modal, débloqué = charger et jouer la vidéo (Internet Archive ou YouTube)
+// Clic sur l'overlay : verrouillé = ouvrir modal, débloqué = charger et jouer la vidéo (Bunny.net ou YouTube)
 function handleVideoOverlayClick() {
   const overlay = document.getElementById("lock-overlay");
   const embed = document.getElementById("video-embed");
@@ -178,11 +178,9 @@ function handleVideoOverlayClick() {
   if (overlay.dataset.unlocked === "true") {
     if (!embed.innerHTML) {
       const iframe = document.createElement("iframe");
-      if (ARCHIVE_ORG_ID) {
-        iframe.src = `https://archive.org/embed/${ARCHIVE_ORG_ID}?autoplay=1`;
-      } else {
-        iframe.src = `https://www.youtube.com/embed/${YOUTUBE_VIDEO_ID}?autoplay=1&rel=0`;
-      }
+      iframe.src = BUNNY_EMBED_URL
+        ? `${BUNNY_EMBED_URL}?autoplay=true`
+        : `https://www.youtube.com/embed/${YOUTUBE_VIDEO_ID}?autoplay=1&rel=0`;
       iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
       iframe.allowFullscreen = true;
       iframe.title = "Vidéo Tradz Army";
