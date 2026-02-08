@@ -1,5 +1,7 @@
 import { createClient } from "@supabase/supabase-js";
 
+const YOUTUBE_VIDEO_ID = "vxUEtYmB6og"; // ID de la vidéo YouTube (ex: youtu.be/vxUEtYmB6og)
+
 function getSupabase() {
   const url = import.meta.env.VITE_SUPABASE_URL;
   const key = import.meta.env.VITE_SUPABASE_ANON_KEY;
@@ -51,7 +53,6 @@ document.addEventListener("DOMContentLoaded", function () {
   window.openUnlockModal = openUnlockModal;
   window.handleVideoOverlayClick = handleVideoOverlayClick;
   window.closeUnlockModal = closeUnlockModal;
-  window.toggleMute = toggleMute;
   window.toggleFullscreen = toggleFullscreen;
   window.closeModal = closeModal;
   window.openLegalModal = openLegalModal;
@@ -167,25 +168,24 @@ function initScrollAnimations() {
   elements.forEach((el) => observer.observe(el));
 }
 
-// Clic sur l'overlay : verrouillé = ouvrir modal, débloqué = jouer la vidéo
+// Clic sur l'overlay : verrouillé = ouvrir modal, débloqué = charger et jouer la vidéo YouTube
 function handleVideoOverlayClick() {
   const overlay = document.getElementById("lock-overlay");
-  const video = document.getElementById("main-video");
+  const embed = document.getElementById("video-embed");
 
   if (overlay.dataset.unlocked === "true") {
-    video.play();
+    if (!embed.innerHTML) {
+      const iframe = document.createElement("iframe");
+      iframe.src = `https://www.youtube.com/embed/${YOUTUBE_VIDEO_ID}?autoplay=1&rel=0`;
+      iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
+      iframe.allowFullscreen = true;
+      iframe.title = "Vidéo Tradz Army";
+      embed.appendChild(iframe);
+    }
     overlay.style.display = "none";
   } else {
     openUnlockModal();
   }
-}
-
-function toggleMute() {
-  const video = document.getElementById("main-video");
-  const btn = document.getElementById("btn-mute");
-  const useEl = btn?.querySelector("use");
-  video.muted = !video.muted;
-  if (useEl) useEl.setAttribute("href", video.muted ? "#icon-volume-mute" : "#icon-volume");
 }
 
 function toggleFullscreen() {
@@ -197,25 +197,7 @@ function toggleFullscreen() {
   }
 }
 
-// Réafficher le bouton play quand la vidéo est en pause + clic pour pause/play
-document.addEventListener("DOMContentLoaded", function () {
-  const video = document.getElementById("main-video");
-  const overlay = document.getElementById("lock-overlay");
-  const controls = document.getElementById("video-controls");
-  if (video && overlay) {
-    video.addEventListener("pause", function () {
-      if (overlay.dataset.unlocked === "true") {
-        overlay.style.display = "flex";
-      }
-    });
-    // Clic sur la vidéo en lecture : met en pause (quand débloqué)
-    video.addEventListener("click", function (e) {
-      if (overlay.dataset.unlocked !== "true") return;
-      if (controls?.contains(e.target)) return;
-      if (!video.paused) video.pause();
-    });
-  }
-});
+// YouTube : pas d'événements pause/play natifs nécessaires
 
 // Fermer modal avec Escape
 document.addEventListener("keydown", (e) => {
