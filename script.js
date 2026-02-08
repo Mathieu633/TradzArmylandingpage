@@ -115,10 +115,9 @@ async function unlockVideo(event) {
 
   const supabaseClient = getSupabase();
   if (supabaseClient) {
-    const { data, error } = await supabaseClient
+    const { error } = await supabaseClient
       .from("quiz_responses")
-      .insert([{ firstname, email }])
-      .select();
+      .insert([{ firstname, email }]);
     if (error) {
       console.error("Erreur Supabase:", error.message, error);
       showSupabaseToast("Erreur enregistrement: " + error.message, "error");
