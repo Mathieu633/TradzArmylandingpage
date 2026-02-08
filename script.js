@@ -1,6 +1,8 @@
 import { createClient } from "@supabase/supabase-js";
 
-const YOUTUBE_VIDEO_ID = "vxUEtYmB6og"; // ID de la vidéo YouTube (ex: youtu.be/vxUEtYmB6og)
+// Config vidéo : MP4 (prioritaire) OU YouTube
+const YOUTUBE_VIDEO_ID = "vxUEtYmB6og"; // ID YouTube si pas de MP4
+const VIDEO_MP4_URL = import.meta.env.VITE_VIDEO_MP4_URL || "https://github.com/Mathieu633/LandingpageV2/releases/download/V1.0/video.lp.mp4";
 
 function getSupabase() {
   const url = import.meta.env.VITE_SUPABASE_URL;
@@ -168,19 +170,29 @@ function initScrollAnimations() {
   elements.forEach((el) => observer.observe(el));
 }
 
-// Clic sur l'overlay : verrouillé = ouvrir modal, débloqué = charger et jouer la vidéo YouTube
+// Clic sur l'overlay : verrouillé = ouvrir modal, débloqué = charger et jouer la vidéo (YouTube ou MP4)
 function handleVideoOverlayClick() {
   const overlay = document.getElementById("lock-overlay");
   const embed = document.getElementById("video-embed");
 
   if (overlay.dataset.unlocked === "true") {
     if (!embed.innerHTML) {
-      const iframe = document.createElement("iframe");
-      iframe.src = `https://www.youtube.com/embed/${YOUTUBE_VIDEO_ID}?autoplay=1&rel=0`;
-      iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
-      iframe.allowFullscreen = true;
-      iframe.title = "Vidéo Tradz Army";
-      embed.appendChild(iframe);
+      if (VIDEO_MP4_URL) {
+        const video = document.createElement("video");
+        video.src = VIDEO_MP4_URL;
+        video.controls = true;
+        video.autoplay = true;
+        video.playsInline = true;
+        video.className = "custom-video";
+        embed.appendChild(video);
+      } else {
+        const iframe = document.createElement("iframe");
+        iframe.src = `https://www.youtube.com/embed/${YOUTUBE_VIDEO_ID}?autoplay=1&rel=0`;
+        iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
+        iframe.allowFullscreen = true;
+        iframe.title = "Vidéo Tradz Army";
+        embed.appendChild(iframe);
+      }
     }
     overlay.style.display = "none";
   } else {
