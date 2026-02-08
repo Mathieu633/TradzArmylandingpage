@@ -1,8 +1,8 @@
 import { createClient } from "@supabase/supabase-js";
 
-// Config vidéo : MP4 (prioritaire) OU YouTube
-const YOUTUBE_VIDEO_ID = "vxUEtYmB6og"; // ID YouTube si pas de MP4
-const VIDEO_MP4_URL = import.meta.env.VITE_VIDEO_MP4_URL || "https://github.com/Mathieu633/LandingpageV2/releases/download/V1.0/video.lp.mp4";
+// Config vidéo : MP4 (si URL valide) OU YouTube
+const YOUTUBE_VIDEO_ID = "vxUEtYmB6og"; // ID YouTube
+const VIDEO_MP4_URL = import.meta.env.VITE_VIDEO_MP4_URL || ""; // URL MP4 streaming (Cloudinary, Internet Archive, etc.) - GitHub Releases ne marche pas
 
 function getSupabase() {
   const url = import.meta.env.VITE_SUPABASE_URL;
