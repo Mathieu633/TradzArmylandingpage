@@ -2616,3 +2616,39 @@ body:not(.landing-unlocked) .revenue-disclaimer {
     .carousel-btn { align-self: center; }
 }
 
+/* Toast diagnostic Supabase */
+.supabase-toast {
+    display: none;
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    max-width: 90%;
+    padding: 14px 20px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    z-index: 99999;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    animation: toastIn 0.3s ease;
+}
+.supabase-toast.visible {
+    display: block;
+}
+.supabase-toast.error {
+    background: #dc2626;
+    color: #fff;
+}
+.supabase-toast.warning {
+    background: #d97706;
+    color: #fff;
+}
+.supabase-toast.success {
+    background: #059669;
+    color: #fff;
+}
+@keyframes toastIn {
+    from { opacity: 0; transform: translateX(-50%) translateY(20px); }
+    to { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+

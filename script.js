@@ -1,3 +1,25 @@
+import { createClient } from "@supabase/supabase-js";
+
+function getSupabase() {
+  const url = import.meta.env.VITE_SUPABASE_URL;
+  const key = import.meta.env.VITE_SUPABASE_ANON_KEY;
+  if (!url || !key || !url.startsWith("http")) return null;
+  try {
+    return createClient(url, key);
+  } catch {
+    return null;
+  }
+}
+
+function showSupabaseToast(message, type) {
+  const el = document.getElementById("supabase-toast");
+  if (!el) return;
+  el.textContent = message;
+  el.className = "supabase-toast visible " + (type || "error");
+  el.setAttribute("aria-live", "polite");
+  setTimeout(() => el.classList.remove("visible"), 8000);
+}
+
 // ========== DÉBLOCAGE LANDING PAGE ==========
 const STORAGE_KEY = "landing_video_unlocked";
 
@@ -18,8 +40,36 @@ function restoreUnlockState() {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
+  if (import.meta.env.DEV) {
+    const ok = !!getSupabase();
+    console.log("[Supabase]", ok ? "Config OK" : "CONFIG MANQUANTE - Vérifiez .env.local (ou Netlify si déployé)");
+  }
   restoreUnlockState();
   if (document.body.classList.contains("landing-unlocked")) initScrollAnimations();
+
+  // Exposer les fonctions pour les handlers inline (onclick) - requis avec type="module"
+  window.openUnlockModal = openUnlockModal;
+  window.handleVideoOverlayClick = handleVideoOverlayClick;
+  window.closeUnlockModal = closeUnlockModal;
+  window.toggleMute = toggleMute;
+  window.toggleFullscreen = toggleFullscreen;
+  window.closeModal = closeModal;
+  window.openLegalModal = openLegalModal;
+  window.toggleFaq = toggleFaq;
+  window.unlockVideo = unlockVideo;
+
+  // Bouton ACCÉDER À LA VIDÉO - délégation d'événement (plus fiable)
+  document.body.addEventListener("click", function (e) {
+    if (e.target.closest("#btn-unlock-submit")) {
+      e.preventDefault();
+      e.stopPropagation();
+      try {
+        unlockVideo(e);
+      } catch (err) {
+        console.error("Erreur unlockVideo:", err);
+      }
+    }
+  });
 });
 
 // ========== MODAL DÉBLOCAGE VIDÉO ==========
@@ -42,37 +92,29 @@ function closeModal(id) {
 }
 
 async function unlockVideo(event) {
-  event.preventDefault();
+  if (event) event.preventDefault();
 
   const firstname = document.getElementById("firstname").value.trim();
   const email = document.getElementById("email").value.trim();
 
   if (!firstname || !email) return;
 
-  const formData = {
-    firstname,
-    email,
-  };
-
-  // Envoyer à Supabase si configuré
-  if (typeof SUPABASE_CONFIG !== "undefined" && SUPABASE_CONFIG.url && SUPABASE_CONFIG.anonKey) {
-    try {
-      const { createClient } = supabase;
-      const supabaseClient = createClient(SUPABASE_CONFIG.url, SUPABASE_CONFIG.anonKey);
-
-      const { data, error } = await supabaseClient
-        .from("quiz_responses")
-        .insert([formData])
-        .select();
-
-      if (error) {
-        console.error("Erreur lors de l'enregistrement:", error);
-      } else {
-        console.log("Données enregistrées:", data);
-      }
-    } catch (err) {
-      console.error("Erreur Supabase:", err);
+  const supabaseClient = getSupabase();
+  if (supabaseClient) {
+    const { data, error } = await supabaseClient
+      .from("quiz_responses")
+      .insert([{ firstname, email }])
+      .select();
+    if (error) {
+      console.error("Erreur Supabase:", error.message, error);
+      showSupabaseToast("Erreur enregistrement: " + error.message, "error");
     }
+  } else {
+    console.warn("Supabase non configuré (VITE_SUPABASE_URL / VITE_SUPABASE_ANON_KEY manquants ?)");
+    showSupabaseToast(
+      "Supabase non configuré. Ajoute VITE_SUPABASE_URL et VITE_SUPABASE_ANON_KEY dans Netlify → Site configuration → Environment variables, puis redéploie.",
+      "warning"
+    );
   }
 
   // Sauvegarder et afficher tout le contenu
@@ -199,17 +241,6 @@ function submitPhone() {
   const phone = input.value.trim();
   if (!phone) return;
   const fullPhone = countryCode + " " + phone.replace(/\s/g, "");
-  if (typeof SUPABASE_CONFIG !== "undefined" && SUPABASE_CONFIG.url && SUPABASE_CONFIG.anonKey) {
-    (async () => {
-      try {
-        const { createClient } = supabase;
-        const supabaseClient = createClient(SUPABASE_CONFIG.url, SUPABASE_CONFIG.anonKey);
-        await supabaseClient.from("quiz_responses").insert([{ phone: fullPhone }]).select();
-      } catch (err) {
-        console.error("Erreur enregistrement téléphone:", err);
-      }
-    })();
-  }
   input.value = "";
   input.placeholder = "Merci ! Ton numéro a été enregistré.";
 }
@@ -230,16 +261,6 @@ async function submitPhoneForm(event) {
   error.style.display = "none";
 
   const fullPhone = countryCode + " " + phone.replace(/\s/g, "");
-
-  if (typeof SUPABASE_CONFIG !== "undefined" && SUPABASE_CONFIG.url && SUPABASE_CONFIG.anonKey) {
-    try {
-      const { createClient } = supabase;
-      const supabaseClient = createClient(SUPABASE_CONFIG.url, SUPABASE_CONFIG.anonKey);
-      await supabaseClient.from("quiz_responses").insert([{ phone: fullPhone }]).select();
-    } catch (err) {
-      console.error("Erreur enregistrement téléphone:", err);
-    }
-  }
 
   input.value = "";
   input.placeholder = "Merci ! Ton numéro a été enregistré.";

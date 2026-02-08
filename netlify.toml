@@ -1,7 +1,8 @@
-# Configuration Netlify pour site statique
+# Configuration Netlify (Vite)
 [build]
-  # Répertoire à publier (racine du projet)
-  publish = "."
-  # Pas de commande de build nécessaire
-  command = ""
+  command = "npm run build"
+  publish = "dist"
+
+# Variables d'environnement à configurer dans Netlify Dashboard :
+# VITE_SUPABASE_URL, VITE_SUPABASE_ANON_KEY
 
