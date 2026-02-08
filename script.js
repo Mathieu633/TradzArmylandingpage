@@ -2,7 +2,7 @@ import { createClient } from "@supabase/supabase-js";
 
 // Config vidéo : Bunny.net (prioritaire) OU YouTube
 const YOUTUBE_VIDEO_ID = "vxUEtYmB6og"; // ID YouTube (fallback)
-const BUNNY_EMBED_URL = "https://iframe.mediadelivery.net/play/595631/7fefa285-c04d-422b-aa57-6b7028ac5835"; // Bunny.net - si vide, utilise YouTube
+const BUNNY_EMBED_URL = "https://iframe.mediadelivery.net/embed/595631/7fefa285-c04d-422b-aa57-6b7028ac5835"; // Bunny.net /embed/ remplit le conteneur
 
 function getSupabase() {
   const url = import.meta.env.VITE_SUPABASE_URL;
@@ -179,7 +179,7 @@ function handleVideoOverlayClick() {
     if (!embed.innerHTML) {
       const iframe = document.createElement("iframe");
       iframe.src = BUNNY_EMBED_URL
-        ? `${BUNNY_EMBED_URL}?autoplay=true`
+        ? `${BUNNY_EMBED_URL}?autoplay=true&preload=true`
         : `https://www.youtube.com/embed/${YOUTUBE_VIDEO_ID}?autoplay=1&rel=0`;
       iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
       iframe.allowFullscreen = true;
