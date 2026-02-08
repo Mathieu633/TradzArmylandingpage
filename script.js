@@ -2,7 +2,8 @@ import { createClient } from "@supabase/supabase-js";
 
 // Config vidéo : Bunny.net (prioritaire) OU YouTube
 const YOUTUBE_VIDEO_ID = "vxUEtYmB6og"; // ID YouTube (fallback)
-const BUNNY_EMBED_URL = "https://iframe.mediadelivery.net/embed/595631/7fefa285-c04d-422b-aa57-6b7028ac5835"; // Bunny.net /embed/ remplit le conteneur
+const BUNNY_EMBED_URL = "https://iframe.mediadelivery.net/embed/595631/7fefa285-c04d-422b-aa57-6b7028ac5835"; // Bunny.net
+const VIDEO_THUMBNAIL_URL = import.meta.env.VITE_VIDEO_THUMBNAIL_URL || "https://vz-595631.mediadelivery.net/7fefa285-c04d-422b-aa57-6b7028ac5835/thumbnail.jpg"; // Miniature - si noir, ajoute VITE_VIDEO_THUMBNAIL_URL depuis ton dashboard Bunny
 
 function getSupabase() {
   const url = import.meta.env.VITE_SUPABASE_URL;
@@ -42,6 +43,10 @@ function restoreUnlockState() {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
+  const poster = document.getElementById("video-poster");
+  if (poster && VIDEO_THUMBNAIL_URL) {
+    poster.style.backgroundImage = `url(${VIDEO_THUMBNAIL_URL})`;
+  }
   if (import.meta.env.DEV) {
     const ok = !!getSupabase();
     console.log("[Supabase]", ok ? "Config OK" : "CONFIG MANQUANTE - Vérifiez .env.local (ou Netlify si déployé)");
@@ -53,7 +58,6 @@ document.addEventListener("DOMContentLoaded", function () {
   window.openUnlockModal = openUnlockModal;
   window.handleVideoOverlayClick = handleVideoOverlayClick;
   window.closeUnlockModal = closeUnlockModal;
-  window.toggleFullscreen = toggleFullscreen;
   window.closeModal = closeModal;
   window.openLegalModal = openLegalModal;
   window.toggleFaq = toggleFaq;
@@ -173,6 +177,8 @@ function handleVideoOverlayClick() {
 
   if (overlay.dataset.unlocked === "true") {
     if (!embed.innerHTML) {
+      const poster = document.getElementById("video-poster");
+      if (poster) poster.style.display = "none";
       const iframe = document.createElement("iframe");
       iframe.src = BUNNY_EMBED_URL
         ? `${BUNNY_EMBED_URL}?autoplay=true&preload=true`
