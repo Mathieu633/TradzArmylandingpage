@@ -35,7 +35,10 @@ function restoreUnlockState() {
     const videoCta = document.getElementById("video-cta-unlocked");
     const unlockCta = document.getElementById("video-unlock-cta");
     if (container) container.classList.remove("video-locked");
-    if (overlay) overlay.dataset.unlocked = "true";
+    if (overlay) {
+      overlay.dataset.unlocked = "true";
+      overlay.style.display = "none";
+    }
     if (unlockCta) unlockCta.style.display = "none";
     if (videoCta) videoCta.style.display = "block";
   }
@@ -139,6 +142,7 @@ async function unlockVideo(event) {
 
   container.classList.remove("video-locked");
   overlay.dataset.unlocked = "true";
+  overlay.style.display = "none";
   if (unlockCta) unlockCta.style.display = "none";
   if (videoCta) videoCta.style.display = "block";
 
@@ -176,31 +180,11 @@ function initScrollAnimations() {
   elements.forEach((el) => observer.observe(el));
 }
 
-// Clic sur l'overlay : verrouillé = ouvrir modal, débloqué = lancer la vidéo
+// Clic sur l'overlay : verrouillé = ouvrir modal
 function handleVideoOverlayClick() {
   const overlay = document.getElementById("lock-overlay");
-  const embed = document.getElementById("video-embed");
-  const iframe = embed?.querySelector("iframe");
-
-  if (overlay.dataset.unlocked === "true") {
-    if (iframe) {
-      if (BUNNY_EMBED_URL && !iframe.src.includes("autoplay=true")) {
-        iframe.src = `${BUNNY_EMBED_URL}?autoplay=true&preload=true`;
-      }
-    } else {
-      const newIframe = document.createElement("iframe");
-      newIframe.src = BUNNY_EMBED_URL
-        ? `${BUNNY_EMBED_URL}?autoplay=true&preload=true`
-        : `https://www.youtube.com/embed/${YOUTUBE_VIDEO_ID}?autoplay=1&rel=0`;
-      newIframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
-      newIframe.allowFullscreen = true;
-      newIframe.title = "Vidéo Tradz Army";
-      embed.appendChild(newIframe);
-    }
-    overlay.style.display = "none";
-  } else {
-    openUnlockModal();
-  }
+  if (overlay.dataset.unlocked === "true") return;
+  openUnlockModal();
 }
 
 function toggleFullscreen() {

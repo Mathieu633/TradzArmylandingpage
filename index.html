@@ -62,21 +62,7 @@
                 <div class="video-preview">
                     <div class="video-container video-locked" id="video-container">
                         <div id="video-embed" class="video-embed"></div>
-                        <div class="video-play-overlay" id="lock-overlay" onclick="handleVideoOverlayClick()">
-                            <button class="custom-play-btn" aria-label="Lire la vidéo">
-                                <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <defs>
-                                        <linearGradient id="playBtnGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                                            <stop offset="0%" stop-color="#B8860B"/>
-                                            <stop offset="50%" stop-color="#D4AF37"/>
-                                            <stop offset="100%" stop-color="#C9A961"/>
-                                        </linearGradient>
-                                    </defs>
-                                    <rect width="80" height="80" rx="0" fill="url(#playBtnGradient)"/>
-                                    <path d="M32 24L32 56L56 40L32 24Z" fill="white"/>
-                                </svg>
-                            </button>
-                        </div>
+                        <div class="video-play-overlay" id="lock-overlay" onclick="handleVideoOverlayClick()"></div>
                     </div>
                     <div class="video-unlock-cta" id="video-unlock-cta">
                         <button class="btn-primary btn-unlock" onclick="openUnlockModal()">DÉBLOQUE LA VIDÉO</button>
