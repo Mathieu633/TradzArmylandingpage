@@ -1,3 +1,24 @@
+// ========== DÉBLOCAGE LANDING PAGE ==========
+const STORAGE_KEY = "landing_video_unlocked";
+
+function restoreUnlockState() {
+  if (localStorage.getItem(STORAGE_KEY) === "true") {
+    document.body.classList.add("landing-unlocked");
+    const container = document.getElementById("video-container");
+    const overlay = document.getElementById("lock-overlay");
+    const videoCta = document.getElementById("video-cta-unlocked");
+    const unlockCta = document.getElementById("video-unlock-cta");
+    const videoControls = document.getElementById("video-controls");
+    if (container) container.classList.remove("video-locked");
+    if (overlay) overlay.dataset.unlocked = "true";
+    if (unlockCta) unlockCta.style.display = "none";
+    if (videoControls) videoControls.style.display = "flex";
+    if (videoCta) videoCta.style.display = "block";
+  }
+}
+
+document.addEventListener("DOMContentLoaded", restoreUnlockState);
+
 // ========== MODAL DÉBLOCAGE VIDÉO ==========
 function openUnlockModal() {
   document.getElementById("unlock-modal").classList.add("active");
@@ -51,10 +72,12 @@ async function unlockVideo(event) {
     }
   }
 
-  // Débloquer la vidéo
+  // Sauvegarder et afficher tout le contenu
+  localStorage.setItem(STORAGE_KEY, "true");
+  document.body.classList.add("landing-unlocked");
+
   const container = document.getElementById("video-container");
   const overlay = document.getElementById("lock-overlay");
-  const video = document.getElementById("main-video");
   const videoCta = document.getElementById("video-cta-unlocked");
   const unlockCta = document.getElementById("video-unlock-cta");
   const videoControls = document.getElementById("video-controls");
@@ -63,7 +86,6 @@ async function unlockVideo(event) {
   overlay.dataset.unlocked = "true";
   if (unlockCta) unlockCta.style.display = "none";
   if (videoControls) videoControls.style.display = "flex";
-
   if (videoCta) videoCta.style.display = "block";
 
   closeUnlockModal();
@@ -133,6 +155,29 @@ function updatePhonePlaceholder() {
   const opt = select.options[select.selectedIndex];
   const placeholder = opt ? opt.dataset.placeholder : "06 12 34 56 78";
   input.placeholder = placeholder;
+}
+
+function submitPhone() {
+  const input = document.getElementById("phone-input");
+  const countrySelect = document.getElementById("country-code");
+  if (!input || !countrySelect) return;
+  const countryCode = countrySelect.value;
+  const phone = input.value.trim();
+  if (!phone) return;
+  const fullPhone = countryCode + " " + phone.replace(/\s/g, "");
+  if (typeof SUPABASE_CONFIG !== "undefined" && SUPABASE_CONFIG.url && SUPABASE_CONFIG.anonKey) {
+    (async () => {
+      try {
+        const { createClient } = supabase;
+        const supabaseClient = createClient(SUPABASE_CONFIG.url, SUPABASE_CONFIG.anonKey);
+        await supabaseClient.from("quiz_responses").insert([{ phone: fullPhone }]).select();
+      } catch (err) {
+        console.error("Erreur enregistrement téléphone:", err);
+      }
+    })();
+  }
+  input.value = "";
+  input.placeholder = "Merci ! Ton numéro a été enregistré.";
 }
 
 async function submitPhoneForm(event) {
@@ -362,6 +407,91 @@ function updateCarousel() {
     const wrap = track.parentElement;
     const wrapWidth = wrap ? wrap.offsetWidth : 9999;
     return Math.min(total, Math.min(3, Math.max(1, Math.floor((wrapWidth + 24) / offset))));
+  }
+
+  function getMaxIndex() {
+    return Math.max(0, total - getVisibleCount());
+  }
+
+  function goTo(index) {
+    const max = getMaxIndex();
+    currentIndex = Math.max(0, Math.min(index, max));
+    const offset = getSlideOffset();
+    track.style.transform = `translateX(-${currentIndex * offset}px)`;
+    dotsContainer.querySelectorAll(".dot").forEach((d, i) => d.classList.toggle("active", i === currentIndex));
+  }
+
+  function prev() {
+    const max = getMaxIndex();
+    goTo(currentIndex === 0 ? max : currentIndex - 1);
+  }
+
+  function next() {
+    const max = getMaxIndex();
+    goTo(currentIndex >= max ? 0 : currentIndex + 1);
+  }
+
+  function renderDots() {
+    dotsContainer.innerHTML = "";
+    const max = getMaxIndex();
+    for (let i = 0; i <= max; i++) {
+      const dot = document.createElement("button");
+      dot.type = "button";
+      dot.className = "dot" + (i === currentIndex ? " active" : "");
+      dot.setAttribute("aria-label", "Position " + (i + 1));
+      dot.addEventListener("click", () => goTo(i));
+      dotsContainer.appendChild(dot);
+    }
+  }
+
+  let autoInterval;
+  function startAuto() {
+    autoInterval = setInterval(next, 5000);
+  }
+  function stopAuto() {
+    clearInterval(autoInterval);
+  }
+
+  prevBtn?.addEventListener("click", () => { stopAuto(); prev(); startAuto(); });
+  nextBtn?.addEventListener("click", () => { stopAuto(); next(); startAuto(); });
+
+  window.addEventListener("resize", () => {
+    renderDots();
+    goTo(Math.min(currentIndex, getMaxIndex()));
+  });
+
+  renderDots();
+  goTo(0);
+  startAuto();
+})();
+
+// ========== CARROUSEL MEMBRES ==========
+(function initMembresCarousel() {
+  const track = document.querySelector(".membres-carousel-track");
+  const dotsContainer = document.querySelector(".membres-carousel-dots");
+  const prevBtn = document.querySelector(".membres-carousel-prev");
+  const nextBtn = document.querySelector(".membres-carousel-next");
+
+  if (!track || !dotsContainer) return;
+
+  const slides = track.querySelectorAll(".membre-slide");
+  const total = slides.length;
+  let currentIndex = 0;
+
+  function getSlideOffset() {
+    const slide = track.querySelector(".membre-slide");
+    if (!slide) return 280;
+    const gap = 20;
+    const rect = slide.getBoundingClientRect();
+    return rect.width + gap;
+  }
+
+  function getVisibleCount() {
+    const offset = getSlideOffset();
+    if (offset <= 0) return 1;
+    const wrap = track.parentElement;
+    const wrapWidth = wrap ? wrap.offsetWidth : 9999;
+    return Math.min(total, Math.max(1, Math.floor((wrapWidth + 20) / offset)));
   }
 
   function getMaxIndex() {
