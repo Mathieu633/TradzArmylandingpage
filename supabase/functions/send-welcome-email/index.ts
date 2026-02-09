@@ -67,7 +67,7 @@ const handler = async (req: Request): Promise<Response> => {
           <p style="font-size: 16px; font-weight: bold; margin-bottom: 12px;">🚀 Rejoindre Tradz Army</p>
           <p style="font-size: 15px; margin-bottom: 20px;">
             Si après la vidéo tu veux passer au niveau supérieur et <strong>rejoindre le groupe privé</strong>, c'est très simple : 👇<br>
-            Clique sur le bouton ci-dessous et envoie simplement "GO" par message.
+            Clique sur le bouton ci-dessous et envoie simplement <strong>GO</strong> par message.
           </p>
           <a href="${LINK_GROUPE}" style="display: inline-block; background-color: #D4AF37; color: #fff; padding: 14px 28px; text-decoration: none; border-radius: 6px; font-weight: bold; margin-bottom: 28px;">Commencer maintenant</a>
           
@@ -76,7 +76,6 @@ const handler = async (req: Request): Promise<Response> => {
           <p style="font-size: 15px; margin-bottom: 12px;">
             Tu peux aussi <strong>rejoindre mon canal public</strong> pour voir le contenu, l'état d'esprit et la valeur que je partage chaque jour.
           </p>
-          <p style="font-size: 15px; margin-bottom: 16px;">👉 Accès gratuit ici :</p>
           <a href="${LINK_CANAL_PUBLIC}" style="display: inline-block; background-color: #1a1a1a; color: #fff; padding: 14px 28px; text-decoration: none; border-radius: 6px; font-weight: bold; margin-bottom: 28px;">Rejoindre le canal public</a>
           
           <hr style="border: none; border-top: 1px solid #e0e0e0; margin: 28px 0;">
