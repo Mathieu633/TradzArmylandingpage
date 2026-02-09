@@ -35,7 +35,8 @@ const handler = async (req: Request): Promise<Response> => {
       return new Response(JSON.stringify({ error: "No email in record" }), { status: 400 });
     }
 
-    const prenom = firstname || "là";
+    const raw = (firstname || "là").trim();
+    const prenom = raw ? raw.charAt(0).toUpperCase() + raw.slice(1).toLowerCase() : "là";
 
     const LINK_GROUPE = "https://t.me/mathieubsupport";
     const LINK_CANAL_PUBLIC = "https://t.me/+KCUZfhJxd88xYTQ8";
@@ -67,7 +68,7 @@ const handler = async (req: Request): Promise<Response> => {
           <p style="font-size: 16px; font-weight: bold; margin-bottom: 12px;">🚀 Rejoindre Tradz Army</p>
           <p style="font-size: 15px; margin-bottom: 20px;">
             Si après la vidéo tu veux passer au niveau supérieur et <strong>rejoindre le groupe privé</strong>, c'est très simple : 👇<br>
-            Clique sur le bouton ci-dessous et envoie simplement <strong>GO</strong> par message.
+            Clique sur le bouton ci-dessous et envoie simplement <strong>"GO"</strong> par message.
           </p>
           <a href="${LINK_GROUPE}" style="display: inline-block; background-color: #D4AF37; color: #fff; padding: 14px 28px; text-decoration: none; border-radius: 6px; font-weight: bold; margin-bottom: 28px;">Commencer maintenant</a>
           
