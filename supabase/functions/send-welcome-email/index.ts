@@ -99,7 +99,7 @@ const handler = async (req: Request): Promise<Response> => {
       body: JSON.stringify({
         from: FROM_EMAIL,
         to: TO_EMAIL ? [TO_EMAIL] : [email],
-        subject: TO_EMAIL ? `[Tradz Army] Nouveau lead : ${prenom}` : `Félicitations ${prenom} d'avoir débloqué la vidéo privée Tradz Army 🔐`,
+        subject: TO_EMAIL ? `[Tradz Army] Nouveau lead : ${prenom}` : `Félicitations ${prenom} pour avoir débloqué la vidéo privée Tradz Army 🔐`,
         html: emailHtml,
       }),
     });
