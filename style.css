@@ -489,14 +489,17 @@ body:not(.landing-unlocked) .revenue-disclaimer {
 }
 @media (max-width: 600px) {
     .resultats-carousel {
-        padding: 0 40px;
+        padding: 0 8px;
         max-width: 100%;
     }
-    .resultat-slide {
-        flex: 0 0 100%;
-        min-width: 100%;
+    .resultats-carousel-track {
+        gap: 0;
+        padding: 0 7.5vw;
     }
-    .resultats-carousel-track { gap: 0; }
+    .resultat-slide {
+        flex: 0 0 85vw;
+        min-width: 85vw;
+    }
     .carousel-btn {
         width: 36px;
         height: 36px;
@@ -563,12 +566,15 @@ body:not(.landing-unlocked) .revenue-disclaimer {
     .besoin-carousel-track { gap: 24px; }
 }
 @media (max-width: 600px) {
-    .besoin-carousel { padding: 0 40px; }
-    .besoin-slide {
-        flex: 0 0 100%;
-        min-width: 100%;
+    .besoin-carousel { padding: 0 8px; }
+    .besoin-carousel-track {
+        gap: 0;
+        padding: 0 7.5vw;
     }
-    .besoin-carousel-track { gap: 0; }
+    .besoin-slide {
+        flex: 0 0 85vw;
+        min-width: 85vw;
+    }
 }
 .besoin-card {
     background: rgba(255, 255, 255, 0.04);
@@ -682,12 +688,15 @@ body:not(.landing-unlocked) .revenue-disclaimer {
     }
 }
 @media (max-width: 600px) {
-    .modules-carousel { padding: 0 40px; }
-    .module-slide {
-        flex: 0 0 100%;
-        min-width: 100%;
+    .modules-carousel { padding: 0 8px; }
+    .modules-carousel-track {
+        gap: 0;
+        padding: 0 7.5vw;
     }
-    .modules-carousel-track { gap: 0; }
+    .module-slide {
+        flex: 0 0 85vw;
+        min-width: 85vw;
+    }
 }
 .module-card {
     background: rgba(255, 255, 255, 0.04);
@@ -2373,9 +2382,10 @@ body:not(.landing-unlocked) .revenue-disclaimer {
     .membre-slide { width: 280px; }
 }
 @media (max-width: 600px) {
-    .membres-carousel { padding: 0 40px; }
-    .membre-slide { width: 260px; }
-    .membre-card-img img { max-width: 260px; }
+    .membres-carousel { padding: 0 8px; }
+    .membres-carousel-track { padding: 0 7.5vw; }
+    .membre-slide { width: min(85vw, 260px); }
+    .membre-card-img img { max-width: min(85vw, 260px); }
 }
 .membre-card {
     background: rgba(255,255,255,0.04);

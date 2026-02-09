@@ -336,9 +336,24 @@ function updateCarousel() {
   }
 
   function applyTransform(noTransition) {
-    const offset = getSlideOffset();
+    const wrap = track.parentElement;
+    const isMobile = wrap && wrap.offsetWidth <= 600;
     if (noTransition) track.style.transition = "none";
-    track.style.transform = `translateX(-${trackIndex * offset}px)`;
+    if (isMobile) {
+      const slide = track.children[startOffset + logicalIndex];
+      if (slide) {
+        const wrapWidth = wrap.offsetWidth;
+        const slideWidth = slide.offsetWidth;
+        const centerOffset = Math.max(0, slide.offsetLeft - (wrapWidth - slideWidth) / 2);
+        track.style.transform = `translateX(-${centerOffset}px)`;
+      } else {
+        const offset = getSlideOffset();
+        track.style.transform = `translateX(-${trackIndex * offset}px)`;
+      }
+    } else {
+      const offset = getSlideOffset();
+      track.style.transform = `translateX(-${trackIndex * offset}px)`;
+    }
     if (noTransition) {
       track.offsetHeight;
       track.style.transition = "";
@@ -451,8 +466,23 @@ function updateCarousel() {
   function goTo(index) {
     const max = getMaxIndex();
     currentIndex = Math.max(0, Math.min(index, max));
-    const offset = getSlideOffset();
-    track.style.transform = `translateX(-${currentIndex * offset}px)`;
+    const wrap = track.parentElement;
+    const isMobile = wrap && wrap.offsetWidth <= 600;
+    if (isMobile) {
+      const slide = track.children[currentIndex];
+      if (slide) {
+        const wrapWidth = wrap.offsetWidth;
+        const slideWidth = slide.offsetWidth;
+        const centerOffset = Math.max(0, slide.offsetLeft - (wrapWidth - slideWidth) / 2);
+        track.style.transform = `translateX(-${centerOffset}px)`;
+      } else {
+        const offset = getSlideOffset();
+        track.style.transform = `translateX(-${currentIndex * offset}px)`;
+      }
+    } else {
+      const offset = getSlideOffset();
+      track.style.transform = `translateX(-${currentIndex * offset}px)`;
+    }
     dotsContainer.querySelectorAll(".dot").forEach((d, i) => d.classList.toggle("active", i === currentIndex));
   }
 
@@ -536,8 +566,23 @@ function updateCarousel() {
   function goTo(index) {
     const max = getMaxIndex();
     currentIndex = Math.max(0, Math.min(index, max));
-    const offset = getSlideOffset();
-    track.style.transform = `translateX(-${currentIndex * offset}px)`;
+    const wrap = track.parentElement;
+    const isMobile = wrap && wrap.offsetWidth <= 600;
+    if (isMobile) {
+      const slide = track.children[currentIndex];
+      if (slide) {
+        const wrapWidth = wrap.offsetWidth;
+        const slideWidth = slide.offsetWidth;
+        const centerOffset = Math.max(0, slide.offsetLeft - (wrapWidth - slideWidth) / 2);
+        track.style.transform = `translateX(-${centerOffset}px)`;
+      } else {
+        const offset = getSlideOffset();
+        track.style.transform = `translateX(-${currentIndex * offset}px)`;
+      }
+    } else {
+      const offset = getSlideOffset();
+      track.style.transform = `translateX(-${currentIndex * offset}px)`;
+    }
     dotsContainer.querySelectorAll(".dot").forEach((d, i) => d.classList.toggle("active", i === currentIndex));
   }
 
@@ -621,8 +666,23 @@ function updateCarousel() {
   function goTo(index) {
     const max = getMaxIndex();
     currentIndex = Math.max(0, Math.min(index, max));
-    const offset = getSlideOffset();
-    track.style.transform = `translateX(-${currentIndex * offset}px)`;
+    const wrap = track.parentElement;
+    const isMobile = wrap && wrap.offsetWidth <= 600;
+    if (isMobile) {
+      const slide = track.children[currentIndex];
+      if (slide) {
+        const wrapWidth = wrap.offsetWidth;
+        const slideWidth = slide.offsetWidth;
+        const centerOffset = Math.max(0, slide.offsetLeft - (wrapWidth - slideWidth) / 2);
+        track.style.transform = `translateX(-${centerOffset}px)`;
+      } else {
+        const offset = getSlideOffset();
+        track.style.transform = `translateX(-${currentIndex * offset}px)`;
+      }
+    } else {
+      const offset = getSlideOffset();
+      track.style.transform = `translateX(-${currentIndex * offset}px)`;
+    }
     dotsContainer.querySelectorAll(".dot").forEach((d, i) => d.classList.toggle("active", i === currentIndex));
   }
 
