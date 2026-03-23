@@ -38,8 +38,8 @@ const handler = async (req: Request): Promise<Response> => {
     const raw = (firstname || "là").trim();
     const prenom = raw ? raw.charAt(0).toUpperCase() + raw.slice(1).toLowerCase() : "là";
 
-    const LINK_GROUPE = "https://t.me/mathieubsupport";
-    const LINK_CANAL_PUBLIC = "https://t.me/+KCUZfhJxd88xYTQ8";
+    const LINK_GROUPE = "https://discord.com/users/995652210635583489";
+    const LINK_CANAL_PUBLIC = "https://discord.gg/aVF9CFsMJZ";
     const LOGO_URL = "https://mathieub.com/favicon.png";
 
     // Email HTML selon le template : prénom dynamique, boutons, logo en bas
@@ -68,14 +68,14 @@ const handler = async (req: Request): Promise<Response> => {
           <p style="font-size: 16px; font-weight: bold; margin-bottom: 12px;">🚀 Rejoindre Tradz Army</p>
           <p style="font-size: 15px; margin-bottom: 20px;">
             Si après la vidéo tu veux passer au niveau supérieur et <strong>rejoindre le groupe privé</strong>, c'est très simple : 👇<br>
-            Clique sur le bouton ci-dessous et envoie simplement <strong>"GO"</strong> par message.
+            Clique sur le bouton ci-dessous et envoie simplement <strong>"JOIN"</strong> par message.
           </p>
           <a href="${LINK_GROUPE}" style="display: inline-block; background-color: #D4AF37; color: #fff; padding: 14px 28px; text-decoration: none; border-radius: 6px; font-weight: bold; margin-bottom: 28px;">Commencer maintenant</a>
           
           <hr style="border: none; border-top: 1px solid #e0e0e0; margin: 28px 0;">
           <p style="font-size: 16px; font-weight: bold; margin-bottom: 12px;">👾 Tu veux d'abord découvrir par toi-même ?</p>
           <p style="font-size: 15px; margin-bottom: 12px;">
-            Tu peux aussi <strong>rejoindre mon canal public</strong> pour voir le contenu, l'état d'esprit et la valeur que je partage chaque jour.
+            Tu peux aussi <strong>rejoindre le discord</strong> pour voir le contenu, l'état d'esprit et la valeur que je partage chaque jour.
           </p>
           <a href="${LINK_CANAL_PUBLIC}" style="display: inline-block; background-color: #1a1a1a; color: #fff; padding: 14px 28px; text-decoration: none; border-radius: 6px; font-weight: bold; margin-bottom: 28px;">Rejoindre le canal public</a>
           
