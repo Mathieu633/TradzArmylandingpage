@@ -1877,6 +1877,19 @@ body:not(.landing-unlocked) .revenue-disclaimer {
     display: inline-block;
     transition: all 0.3s;
 }
+
+.btn-secondary.btn-discord {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.btn-secondary.btn-discord .discord-icon {
+    width: 18px;
+    height: 18px;
+    fill: currentColor;
+    flex: 0 0 auto;
+}
 .btn-secondary:hover {
     background: rgba(255,255,255,0.1);
     border-color: rgba(212,175,55,0.5);
