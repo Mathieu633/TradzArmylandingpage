@@ -77,7 +77,7 @@ const handler = async (req: Request): Promise<Response> => {
           <p style="font-size: 15px; margin-bottom: 12px;">
             Tu peux aussi <strong>rejoindre le discord</strong> pour voir le contenu, l'état d'esprit et la valeur que je partage chaque jour.
           </p>
-          <a href="${LINK_CANAL_PUBLIC}" style="display: inline-block; background-color: #1a1a1a; color: #fff; padding: 14px 28px; text-decoration: none; border-radius: 6px; font-weight: bold; margin-bottom: 28px;">Rejoindre le canal public</a>
+          <a href="${LINK_CANAL_PUBLIC}" style="display: inline-block; background-color: #1a1a1a; color: #fff; padding: 14px 28px; text-decoration: none; border-radius: 6px; font-weight: bold; margin-bottom: 28px;">Rejoindre le Discord</a>
           
           <hr style="border: none; border-top: 1px solid #e0e0e0; margin: 28px 0;">
           <p style="font-size: 15px; margin-bottom: 8px;">À très vite dans la Army,<br><strong>Tradz Army</strong> 🙌📊</p>
